@@ -4,7 +4,7 @@ const PIXEL_MATERIAL = preload("res://PixelRenderer/data/PixelMaterial.tres")
 const CONFIG_FILE_PATH = "user://material_config.cfg"
 const PRESETS_FILE_PATH = "user://material_presets.cfg"
 const CUSTOM_COLORS_FILE_PATH = "user://custom_colors.cfg"
-
+const PIXELART_STYLIZER = preload("res://PixelRenderer/data/pixelart_stylizer.tres")
 @onready var color_preset_option_button: OptionButton = %ColorPresetOptionButton
 
 
@@ -19,6 +19,11 @@ const CUSTOM_COLORS_FILE_PATH = "user://custom_colors.cfg"
 @onready var contrast_slider: HSlider = %ContrastSlider
 @onready var gamma_slider: HSlider = %GammaSlider
 @onready var brightness_slider: HSlider = %BrightnessSlider
+@onready var post_process_outline: SpinBox = %PostProcessOutline
+@onready var shadow_strength_color_picker: ColorPickerButton = %ShadowStrengthColorPicker
+@onready var highlight_strength_color_picker: ColorPickerButton = %HighlightStrengthColorPicker
+@onready var shadow_strength_slider: HSlider = %ShadowStrengthSlider
+@onready var highlight_strength_slider: HSlider = %HighlightStrengthSlider
 @onready var outline_spin: SpinBox = %OutlineSpinBox
 @onready var outline_color_picker: ColorPickerButton = %OutlineColorPicker
 @onready var use_palette_check_box: CheckButton = %UsePaletteCheckButton
@@ -84,6 +89,11 @@ const DEFAULT_VALUES = {
 	"brightness": 0.0,
 	"outline": 0.0,
 	"outline_color": Color(0.0, 0.0, 0.0, 1.0),
+	"post_process_outline": 0.0,
+	"shadow_strength": 0.4,
+	"highlight_strength": 0.1,
+	"shadow_color": Color(0.0, 0.0, 0.0, 1.0),
+	"highlight_color": Color(1.0, 1.0, 1.0, 1.0),
 	"use_palette": true,  # Match shader default
 	"palette_color_1": Color(0.051, 0.169, 0.271, 1.0),
 	"palette_color_2": Color(0.125, 0.235, 0.337, 1.0),
@@ -274,6 +284,13 @@ func _select_preset(preset_name: String):
 	use_palette_color_7.color = preset_data.get("palette_color_7", DEFAULT_VALUES.palette_color_7)
 	use_palette_color_8.color = preset_data.get("palette_color_8", DEFAULT_VALUES.palette_color_8)
 	
+	# Apply PixelArt Stylizer parameters
+	post_process_outline.value = preset_data.get("post_process_outline", DEFAULT_VALUES.post_process_outline)
+	shadow_strength_slider.value = preset_data.get("shadow_strength", DEFAULT_VALUES.shadow_strength)
+	highlight_strength_slider.value = preset_data.get("highlight_strength", DEFAULT_VALUES.highlight_strength)
+	shadow_strength_color_picker.color = preset_data.get("shadow_color", DEFAULT_VALUES.shadow_color)
+	highlight_strength_color_picker.color = preset_data.get("highlight_color", DEFAULT_VALUES.highlight_color)
+	
 	# Switch color preset to Custom when loading main preset
 	if current_color_preset_name != "Custom":
 		_switch_to_custom_preset()
@@ -319,6 +336,11 @@ func _get_current_values() -> Dictionary:
 		"brightness": brightness_slider.value,
 		"outline": outline_spin.value,
 		"outline_color": outline_color_picker.color,
+		"post_process_outline": post_process_outline.value,
+		"shadow_strength": shadow_strength_slider.value,
+		"highlight_strength": highlight_strength_slider.value,
+		"shadow_color": shadow_strength_color_picker.color,
+		"highlight_color": highlight_strength_color_picker.color,
 		"use_palette": use_palette_check_box.button_pressed,
 		"palette_color_1": use_palette_color_1.color,
 		"palette_color_2": use_palette_color_2.color,
@@ -509,6 +531,11 @@ func _load_saved_values():
 		brightness_slider.value = config.get_value("material", "brightness", DEFAULT_VALUES.brightness)
 		outline_spin.value = config.get_value("material", "outline", DEFAULT_VALUES.outline)
 		outline_color_picker.color = config.get_value("material", "outline_color", DEFAULT_VALUES.outline_color)
+		post_process_outline.value = config.get_value("material", "post_process_outline", DEFAULT_VALUES.post_process_outline)
+		shadow_strength_slider.value = config.get_value("material", "shadow_strength", DEFAULT_VALUES.shadow_strength)
+		highlight_strength_slider.value = config.get_value("material", "highlight_strength", DEFAULT_VALUES.highlight_strength)
+		shadow_strength_color_picker.color = config.get_value("material", "shadow_color", DEFAULT_VALUES.shadow_color)
+		highlight_strength_color_picker.color = config.get_value("material", "highlight_color", DEFAULT_VALUES.highlight_color)
 		use_palette_check_box.button_pressed = config.get_value("material", "use_palette", DEFAULT_VALUES.use_palette)
 		
 		# Load palette colors
@@ -549,6 +576,11 @@ func _load_default_values():
 	brightness_slider.value = DEFAULT_VALUES.brightness
 	outline_spin.value = DEFAULT_VALUES.outline
 	outline_color_picker.color = DEFAULT_VALUES.outline_color
+	post_process_outline.value = DEFAULT_VALUES.post_process_outline
+	shadow_strength_slider.value = DEFAULT_VALUES.shadow_strength
+	highlight_strength_slider.value = DEFAULT_VALUES.highlight_strength
+	shadow_strength_color_picker.color = DEFAULT_VALUES.shadow_color
+	highlight_strength_color_picker.color = DEFAULT_VALUES.highlight_color
 	use_palette_check_box.button_pressed = DEFAULT_VALUES.use_palette
 	
 	# Set SLso8 palette colors
@@ -592,6 +624,11 @@ func _save_current_values():
 	config.set_value("material", "brightness", brightness_slider.value)
 	config.set_value("material", "outline", outline_spin.value)
 	config.set_value("material", "outline_color", outline_color_picker.color)
+	config.set_value("material", "post_process_outline", post_process_outline.value)
+	config.set_value("material", "shadow_strength", shadow_strength_slider.value)
+	config.set_value("material", "highlight_strength", highlight_strength_slider.value)
+	config.set_value("material", "shadow_color", shadow_strength_color_picker.color)
+	config.set_value("material", "highlight_color", highlight_strength_color_picker.color)
 	config.set_value("material", "use_palette", use_palette_check_box.button_pressed)
 	
 	# Save palette colors
@@ -631,9 +668,12 @@ func _connect_signals():
 	gamma_slider.value_changed.connect(_on_gamma_changed)
 	brightness_slider.value_changed.connect(_on_brightness_changed)
 	outline_spin.value_changed.connect(_on_outline_changed)
+	post_process_outline.value_changed.connect(_on_post_process_outline_changed)
 	
 	# Connect color picker signals
 	outline_color_picker.color_changed.connect(_on_outline_color_changed)
+	shadow_strength_color_picker.color_changed.connect(_on_shadow_color_changed)
+	highlight_strength_color_picker.color_changed.connect(_on_highlight_color_changed)
 	use_palette_color_1.color_changed.connect(_on_palette_color_1_changed)
 	use_palette_color_2.color_changed.connect(_on_palette_color_2_changed)
 	use_palette_color_3.color_changed.connect(_on_palette_color_3_changed)
@@ -642,6 +682,10 @@ func _connect_signals():
 	use_palette_color_6.color_changed.connect(_on_palette_color_6_changed)
 	use_palette_color_7.color_changed.connect(_on_palette_color_7_changed)
 	use_palette_color_8.color_changed.connect(_on_palette_color_8_changed)
+	
+	# Connect slider signals for PixelArt Stylizer
+	shadow_strength_slider.value_changed.connect(_on_shadow_strength_changed)
+	highlight_strength_slider.value_changed.connect(_on_highlight_strength_changed)
 	
 	# Connect dithering signals
 	dither_amount_slider.value_changed.connect(_on_dither_amount_changed)
@@ -700,6 +744,13 @@ func _apply_all_values():
 	PIXEL_MATERIAL.set_shader_parameter("shadow_sensitivity", dither_sensitivity_slider.value)
 	PIXEL_MATERIAL.set_shader_parameter("dot_size", dither_dot_size_spin.value)
 	PIXEL_MATERIAL.set_shader_parameter("dither_color", dither_dot_color.color)
+	
+	# Apply PixelArt Stylizer parameters
+	PIXELART_STYLIZER.set_shader_parameter("outline_size", post_process_outline.value)
+	PIXELART_STYLIZER.set_shader_parameter("shadow_strength", shadow_strength_slider.value)
+	PIXELART_STYLIZER.set_shader_parameter("highlight_strength", highlight_strength_slider.value)
+	PIXELART_STYLIZER.set_shader_parameter("shadow_color", shadow_strength_color_picker.color)
+	PIXELART_STYLIZER.set_shader_parameter("highlight_color", highlight_strength_color_picker.color)
 
 # Preset signal handlers
 func _on_preset_selected(index: int):
@@ -899,6 +950,27 @@ func _on_dither_dot_size_changed(value: float):
 
 func _on_dither_dot_color_changed(color: Color):
 	PIXEL_MATERIAL.set_shader_parameter("dither_color", color)
+	_save_current_values()
+
+# PixelArt Stylizer signal handlers
+func _on_post_process_outline_changed(value: float):
+	PIXELART_STYLIZER.set_shader_parameter("outline_size", value)
+	_save_current_values()
+
+func _on_shadow_strength_changed(value: float):
+	PIXELART_STYLIZER.set_shader_parameter("shadow_strength", value)
+	_save_current_values()
+
+func _on_highlight_strength_changed(value: float):
+	PIXELART_STYLIZER.set_shader_parameter("highlight_strength", value)
+	_save_current_values()
+
+func _on_shadow_color_changed(color: Color):
+	PIXELART_STYLIZER.set_shader_parameter("shadow_color", color)
+	_save_current_values()
+
+func _on_highlight_color_changed(color: Color):
+	PIXELART_STYLIZER.set_shader_parameter("highlight_color", color)
 	_save_current_values()
 
 # Reset button handler
