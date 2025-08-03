@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Pixel Renderer"
 run/main_scene="uid://y4o6ttmh8hb4"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="uid://d3o8isbpbhfrw"
 
 [display]

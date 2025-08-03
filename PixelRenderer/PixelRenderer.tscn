@@ -1,10 +1,11 @@
-[gd_scene load_steps=46 format=3 uid="uid://y4o6ttmh8hb4"]
+[gd_scene load_steps=48 format=3 uid="uid://y4o6ttmh8hb4"]
 
 [ext_resource type="Script" uid="uid://dhq1ywbp8nv12" path="res://PixelRenderer/data/scripts/PixelRenderer.gd" id="1_5ibnk"]
 [ext_resource type="Material" uid="uid://dn8s72rfum4y4" path="res://PixelRenderer/data/Gizmo.tres" id="2_6vt7t"]
 [ext_resource type="Theme" uid="uid://bcwmv53i5brfs" path="res://PixelRenderer/data/theme.tres" id="2_l23g4"]
 [ext_resource type="Material" uid="uid://bmhdt60ax1int" path="res://PixelRenderer/data/PixelMaterial.tres" id="3_v52r1"]
 [ext_resource type="Texture2D" uid="uid://dt7vukhh5pm4c" path="res://PixelRenderer/data/icons/anim_play.png" id="4_6wj3c"]
+[ext_resource type="Material" uid="uid://iyby61de0rw8" path="res://PixelRenderer/data/pixelart_stylizer.tres" id="4_g6ha7"]
 [ext_resource type="Texture2D" uid="uid://75s28vduypuu" path="res://PixelRenderer/data/icons/folder.png" id="4_sen5r"]
 [ext_resource type="Texture2D" uid="uid://d3o8isbpbhfrw" path="res://PixelRenderer.png" id="4_x1hdl"]
 [ext_resource type="Texture2D" uid="uid://bm2gonmtadb85" path="res://PixelRenderer/data/icons/anim_pause.png" id="5_t0cwl"]
@@ -46,6 +47,10 @@ size = Vector3(0.01, 0.5, 0.01)
 [sub_resource type="Environment" id="Environment_wwtbg"]
 background_energy_multiplier = 2.0
 
+[sub_resource type="QuadMesh" id="QuadMesh_e8x0m"]
+material = ExtResource("4_g6ha7")
+size = Vector2(34, 34)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5aq5t"]
 bg_color = Color(0.12549, 0.12549, 0.12549, 1)
 
@@ -64,11 +69,11 @@ bg_color = Color(0.140447, 0.140447, 0.140447, 1)
 [sub_resource type="ViewportTexture" id="ViewportTexture_6vt7t"]
 viewport_path = NodePath("SubViewport2")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vt7t"]
-bg_color = Color(0.117647, 0.117647, 0.117647, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilx0h"]
 bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vt7t"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6vt7t"]
 size = Vector2(100, 100)
@@ -152,6 +157,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 100)
 projection = 1
 size = 4.0
 
+[node name="Postprocess" type="MeshInstance3D" parent="SubViewport/Camera"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.001, -0.044, -0.872)
+cast_shadow = 0
+extra_cull_margin = 16384.0
+ignore_occlusion_culling = true
+mesh = SubResource("QuadMesh_e8x0m")
+skeleton = NodePath("")
+
 [node name="SubViewport2" type="SubViewport" parent="."]
 transparent_bg = true
 
@@ -162,7 +176,7 @@ size = 7.773
 
 [node name="ViewportBackgroundColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(800, 800)
-anchors_preset = 5
+anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -400.0
@@ -987,7 +1001,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainUI/UI_Controls"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainUI/UI_Controls/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -996,42 +1017,42 @@ text = "PRESET CONFIG"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PresetSelector" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PresetSelector" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="PresetOptionButton" type="OptionButton" parent="MainUI/UI_Controls/PresetSelector"]
+[node name="PresetOptionButton" type="OptionButton" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PresetSelector"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 clip_text = true
 fit_to_longest_item = false
 
-[node name="SearchTextLineEdit" type="LineEdit" parent="MainUI/UI_Controls/PresetSelector"]
+[node name="SearchTextLineEdit" type="LineEdit" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PresetSelector"]
 unique_name_in_owner = true
 clip_contents = true
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 placeholder_text = "search "
 
-[node name="SavePresetButton" type="Button" parent="MainUI/UI_Controls/PresetSelector"]
+[node name="SavePresetButton" type="Button" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PresetSelector"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 icon = ExtResource("22_6vt7t")
 expand_icon = true
 
-[node name="DeletePresetButton" type="Button" parent="MainUI/UI_Controls/PresetSelector"]
+[node name="DeletePresetButton" type="Button" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PresetSelector"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 icon = ExtResource("23_ilx0h")
 expand_icon = true
 
-[node name="HSeparator7" type="HSeparator" parent="MainUI/UI_Controls"]
+[node name="HSeparator7" type="HSeparator" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="MainUI/UI_Controls"]
+[node name="Label4" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1040,48 +1061,48 @@ text = "COLOR ADJUSTMENTS"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Panel" type="Panel" parent="MainUI/UI_Controls"]
+[node name="Panel" type="Panel" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PixelAdjust1" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust1" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust1"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust1"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Color steps:"
 horizontal_alignment = 2
 
-[node name="ColorStepsSpin" type="SpinBox" parent="MainUI/UI_Controls/PixelAdjust1"]
+[node name="ColorStepsSpin" type="SpinBox" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust1"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 value = 8.0
 allow_greater = true
 
-[node name="Label2" type="Label" parent="MainUI/UI_Controls/PixelAdjust1"]
+[node name="Label2" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust1"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ResetMaterialButton" type="Button" parent="MainUI/UI_Controls/PixelAdjust1"]
+[node name="ResetMaterialButton" type="Button" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 icon = ExtResource("9_ilx0h")
 expand_icon = true
 
-[node name="PixelAdjust2" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust2" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust2"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust2"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Edge strength:"
 horizontal_alignment = 2
 
-[node name="EdgeStrengthSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust2"]
+[node name="EdgeStrengthSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1090,17 +1111,17 @@ size_flags_vertical = 4
 max_value = 5.0
 step = 0.5
 
-[node name="PixelAdjust3" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust3" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust3"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust3"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Sharpness:"
 horizontal_alignment = 2
 
-[node name="SharpnessSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust3"]
+[node name="SharpnessSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1109,17 +1130,17 @@ size_flags_vertical = 4
 max_value = 5.0
 step = 0.1
 
-[node name="PixelAdjust4" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust4" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust4"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust4"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Hue shift:"
 horizontal_alignment = 2
 
-[node name="HueShiftSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust4"]
+[node name="HueShiftSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust4"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1128,17 +1149,17 @@ size_flags_vertical = 4
 min_value = -180.0
 max_value = 180.0
 
-[node name="PixelAdjust5" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust5" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust5"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust5"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Saturation:"
 horizontal_alignment = 2
 
-[node name="SaturationSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust5"]
+[node name="SaturationSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust5"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1148,17 +1169,17 @@ max_value = 2.0
 step = 0.1
 value = 1.0
 
-[node name="PixelAdjust6" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust6" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust6"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust6"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Value:"
 horizontal_alignment = 2
 
-[node name="ValueSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust6"]
+[node name="ValueSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust6"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1168,17 +1189,17 @@ max_value = 2.0
 step = 0.1
 value = 1.0
 
-[node name="PixelAdjust7" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust7" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust7"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust7"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Contrast:"
 horizontal_alignment = 2
 
-[node name="ContrastSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust7"]
+[node name="ContrastSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust7"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1188,17 +1209,17 @@ max_value = 5.0
 step = 0.1
 value = 1.0
 
-[node name="PixelAdjust8" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust8" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust8"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust8"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Gamma:"
 horizontal_alignment = 2
 
-[node name="GammaSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust8"]
+[node name="GammaSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust8"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1208,17 +1229,17 @@ max_value = 5.0
 step = 0.1
 value = 1.0
 
-[node name="PixelAdjust9" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust9" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust9"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust9"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Brightness:"
 horizontal_alignment = 2
 
-[node name="BrightnessSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust9"]
+[node name="BrightnessSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust9"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1228,29 +1249,95 @@ min_value = -1.0
 max_value = 1.0
 step = 0.1
 
-[node name="PixelAdjust10" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust10" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust10"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust10"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Outline:"
 horizontal_alignment = 2
 
-[node name="OutlineSpinBox" type="SpinBox" parent="MainUI/UI_Controls/PixelAdjust10"]
+[node name="OutlineSpinBox" type="SpinBox" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust10"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="OutlineColorPicker" type="ColorPickerButton" parent="MainUI/UI_Controls/PixelAdjust10"]
+[node name="OutlineColorPicker" type="ColorPickerButton" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust10"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
-[node name="HSeparator10" type="HSeparator" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust11" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust11"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Post-Process :"
+horizontal_alignment = 2
+
+[node name="PostProcessOutline" type="SpinBox" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust11"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="MainUI/UI_Controls"]
+[node name="ShadowStrengthColorPicker" type="ColorPickerButton" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust11"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+edit_intensity = false
+
+[node name="HighlightStrengthColorPicker" type="ColorPickerButton" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust11"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+color = Color(1, 1, 1, 1)
+
+[node name="PixelAdjust17" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust17"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Shadow:"
+horizontal_alignment = 2
+
+[node name="ShadowStrengthSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust17"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 0.9900000000052388
+step = 0.1
+value = 0.4
+
+[node name="PixelAdjust18" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust18"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Highlight:"
+horizontal_alignment = 2
+
+[node name="HighlightStrengthSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust18"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 0.9900000000052387
+step = 0.1
+value = 0.1
+
+[node name="HSeparator10" type="HSeparator" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1259,17 +1346,17 @@ text = "DITHERING"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PixelAdjust12" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust12" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust12"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust12"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Amount:"
 horizontal_alignment = 2
 
-[node name="DitherAmountSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust12"]
+[node name="DitherAmountSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust12"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1277,17 +1364,17 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 step = 0.01
 
-[node name="PixelAdjust13" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust13" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust13"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust13"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Blend:"
 horizontal_alignment = 2
 
-[node name="DitherBlendSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust13"]
+[node name="DitherBlendSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust13"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1295,17 +1382,17 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 step = 0.01
 
-[node name="PixelAdjust14" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust14" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust14"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust14"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Threshold:"
 horizontal_alignment = 2
 
-[node name="DitherThresholdSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust14"]
+[node name="DitherThresholdSlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust14"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1313,60 +1400,63 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 step = 0.01
 
-[node name="PixelAdjust15" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust15" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust15"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust15"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Sensitivity:"
 horizontal_alignment = 2
 
-[node name="DitherSensitivitySlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust15"]
+[node name="DitherSensitivitySlider" type="HSlider" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust15"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="PixelAdjust16" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust16" type="HBoxContainer" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust16"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust16"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Dot size"
 horizontal_alignment = 2
 
-[node name="DitherDotSizeSpin" type="SpinBox" parent="MainUI/UI_Controls/PixelAdjust16"]
+[node name="DitherDotSizeSpin" type="SpinBox" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust16"]
 unique_name_in_owner = true
 layout_mode = 2
 step = 0.1
 value = 1.0
 
-[node name="DitherDotColor" type="ColorPickerButton" parent="MainUI/UI_Controls/PixelAdjust16"]
+[node name="DitherDotColor" type="ColorPickerButton" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/PixelAdjust16"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
-[node name="HSeparator9" type="HSeparator" parent="MainUI/UI_Controls"]
+[node name="HSeparator9" type="HSeparator" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Panel2" type="Panel" parent="MainUI/UI_Controls"]
+[node name="Panel2" type="Panel" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 250)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_x1hdl")
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/UI_Controls/Panel2"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/UI_Controls/ScrollContainer/VBoxContainer/Panel2"]
 clip_contents = true
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = SubResource("ViewportTexture_6vt7t")
 expand_mode = 1
@@ -1374,10 +1464,9 @@ stretch_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainUI"]
 layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MainUI/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(112, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_l23g4")
@@ -1390,8 +1479,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-theme_override_styles/pressed = SubResource("StyleBoxFlat_6vt7t")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ilx0h")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6vt7t")
 text = " REMAP"
 alignment = 1
 
@@ -1401,52 +1490,69 @@ layout_mode = 2
 clip_text = true
 fit_to_longest_item = false
 
-[node name="UsePaletteColor1" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="UsePaletteColor2" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="UsePaletteColor3" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="UsePaletteColor4" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="UsePaletteColor5" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="UsePaletteColor6" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="UsePaletteColor7" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="UsePaletteColor8" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
 [node name="SampleColorsButton" type="Button" parent="MainUI/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "SAMPLE"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainUI/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="UsePaletteColor1" type="ColorPickerButton" parent="MainUI/VBoxContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 110)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UsePaletteColor2" type="ColorPickerButton" parent="MainUI/VBoxContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 110)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UsePaletteColor3" type="ColorPickerButton" parent="MainUI/VBoxContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 110)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UsePaletteColor4" type="ColorPickerButton" parent="MainUI/VBoxContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 110)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UsePaletteColor5" type="ColorPickerButton" parent="MainUI/VBoxContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 110)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UsePaletteColor6" type="ColorPickerButton" parent="MainUI/VBoxContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 110)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UsePaletteColor7" type="ColorPickerButton" parent="MainUI/VBoxContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 110)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UsePaletteColor8" type="ColorPickerButton" parent="MainUI/VBoxContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 110)
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="MainUI"]
 layout_mode = 2
