@@ -30,12 +30,12 @@ static var PRESETS = {
 		"dither_threshold": 0.5,
 		"shadow_sensitivity": 1.0,
 		"dot_size": 1.0,
-		"PostProcessOutline": 0,
-		"Shadow_Strength": 0.1,
-		"Highlight_Strength": 0.4,
-		"shadow_strength_color": Color(0.0, 0.0, 0.0, 1.0),
-		"highlight_strength_color": Color(1.0, 1.0, 1.0, 1.0),
-		"dither_color": Color(0.0, 0.0, 0.0, 1.0),
+		"post_process_outline": 0,
+		"shadow_strength": 0.1,
+		"highlight_strength": 0.4,
+		"shadow_color": Color(0.0, 0.0, 0.0, 1.0),
+		"highlight_color": Color(1.0, 1.0, 1.0, 1.0),
+		"dither_color": Color(0.0, 0.0, 0.0, 1.0)
 	},
 	"High Contrast": {
 		"target_pixel_count": 256,
@@ -64,13 +64,12 @@ static var PRESETS = {
 		"dither_threshold": 0.6,
 		"shadow_sensitivity": 1.5,
 		"dot_size": 1.2,
-		"PostProcessOutline": 0,
-		"Shadow_Strength": 0.1,
-		"Highlight_Strength": 0.4,
-		"shadow_strength_color": Color(0.0, 0.0, 0.0, 1.0),
-		"highlight_strength_color": Color(1.0, 1.0, 1.0, 1.0),
+		"post_process_outline": 0,
+		"shadow_strength": 0.1,
+		"highlight_strength": 0.4,
+		"shadow_color": Color(0.0, 0.0, 0.0, 1.0),
+		"highlight_color": Color(1.0, 1.0, 1.0, 1.0),
 		"dither_color": Color(0.0, 0.0, 0.0, 1.0)
-		
 	},
 	"Vintage": {
 		"target_pixel_count": 384,
@@ -99,11 +98,11 @@ static var PRESETS = {
 		"dither_threshold": 0.4,
 		"shadow_sensitivity": 0.8,
 		"dot_size": 0.8,
-		"PostProcessOutline": 0,
-		"Shadow_Strength": 0.1,
-		"Highlight_Strength": 0.4,
-		"shadow_strength_color": Color(0.0, 0.0, 0.0, 1.0),
-		"highlight_strength_color": Color(1.0, 1.0, 1.0, 1.0),
+		"post_process_outline": 0,
+		"shadow_strength": 0.1,
+		"highlight_strength": 0.4,
+		"shadow_color": Color(0.0, 0.0, 0.0, 1.0),
+		"highlight_color": Color(1.0, 1.0, 1.0, 1.0),
 		"dither_color": Color(0.3, 0.2, 0.1, 1.0)
 	},
 	"Neon": {
@@ -133,11 +132,11 @@ static var PRESETS = {
 		"dither_threshold": 0.7,
 		"shadow_sensitivity": 1.2,
 		"dot_size": 1.5,
-		"PostProcessOutline": 0,
-		"Shadow_Strength": 0.1,
-		"Highlight_Strength": 0.4,
-		"shadow_strength_color": Color(0.0, 0.0, 0.0, 1.0),
-		"highlight_strength_color": Color(1.0, 1.0, 1.0, 1.0),
+		"post_process_outline": 0,
+		"shadow_strength": 0.1,
+		"highlight_strength": 0.4,
+		"shadow_color": Color(0.0, 0.0, 0.0, 1.0),
+		"highlight_color": Color(1.0, 1.0, 1.0, 1.0),
 		"dither_color": Color(1.0, 0.0, 1.0, 1.0)
 	},
 	"Retro Game": {
@@ -167,11 +166,11 @@ static var PRESETS = {
 		"dither_threshold": 0.5,
 		"shadow_sensitivity": 1.0,
 		"dot_size": 1.0,
-		"PostProcessOutline": 0,
-		"Shadow_Strength": 0.1,
-		"Highlight_Strength": 0.4,
-		"shadow_strength_color": Color(0.0, 0.0, 0.0, 1.0),
-		"highlight_strength_color": Color(1.0, 1.0, 1.0, 1.0),
+		"post_process_outline": 0,
+		"shadow_strength": 0.1,
+		"highlight_strength": 0.4,
+		"shadow_color": Color(0.0, 0.0, 0.0, 1.0),
+		"highlight_color": Color(1.0, 1.0, 1.0, 1.0),
 		"dither_color": Color(0.0, 0.0, 0.0, 1.0)
 	},
 	"Monochrome": {
@@ -201,11 +200,11 @@ static var PRESETS = {
 		"dither_threshold": 0.5,
 		"shadow_sensitivity": 1.0,
 		"dot_size": 1.0,
-		"PostProcessOutline": 0,
-		"Shadow_Strength": 0.1,
-		"Highlight_Strength": 0.4,
-		"shadow_strength_color": Color(0.0, 0.0, 0.0, 1.0),
-		"highlight_strength_color": Color(1.0, 1.0, 1.0, 1.0),
+		"post_process_outline": 0,
+		"shadow_strength": 0.1,
+		"highlight_strength": 0.4,
+		"shadow_color": Color(0.0, 0.0, 0.0, 1.0),
+		"highlight_color": Color(1.0, 1.0, 1.0, 1.0),
 		"dither_color": Color(0.0, 0.0, 0.0, 1.0)
 	},
 	"Pastel": {
@@ -235,11 +234,11 @@ static var PRESETS = {
 		"dither_threshold": 0.3,
 		"shadow_sensitivity": 0.6,
 		"dot_size": 0.7,
-		"PostProcessOutline": 0,
-		"Shadow_Strength": 0.1,
-		"Highlight_Strength": 0.4,
-		"shadow_strength_color": Color(0.0, 0.0, 0.0, 1.0),
-		"highlight_strength_color": Color(1.0, 1.0, 1.0, 1.0),
+		"post_process_outline": 0,
+		"shadow_strength": 0.1,
+		"highlight_strength": 0.4,
+		"shadow_color": Color(0.0, 0.0, 0.0, 1.0),
+		"highlight_color": Color(1.0, 1.0, 1.0, 1.0),
 		"dither_color": Color(0.9, 0.9, 0.9, 1.0)
 	}
 }
@@ -261,4 +260,4 @@ static func has_preset(name: String) -> bool:
 
 # Get all presets
 static func get_all_presets() -> Dictionary:
-	return PRESETS.duplicate(true) 
+	return PRESETS.duplicate(true)
