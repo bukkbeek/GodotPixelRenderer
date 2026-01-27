@@ -2,6 +2,18 @@ class_name BuiltinPresets
 extends RefCounted
 
 # Built-in presets for the pixel material system
+# 
+# 256-Color Palette Support (v4.6):
+# - The "256 Colors" preset is optimized for 256-color palettes
+# - color_steps can be set from 2 to 256 (in presets)
+# - palette_color_count determines how many colors are active (2-64 in shader)
+# - Combine high color_steps with palette mode for precise color matching
+# 
+# To use 256-color mode:
+# 1. Load the "256 Colors" preset
+# 2. Or set color_steps to a high value with use_palette enabled
+# 3. Select a 256-color palette (like PIX256) in color presets
+
 static var PRESETS = {
 	"Default": {
 		"target_pixel_count": 512,
@@ -222,6 +234,7 @@ static var PRESETS = {
 		"outline": 0.0,
 		"outline_color": Color(0.8, 0.8, 0.8, 1.0),
 		"use_palette": true,
+		"palette_color_count": 8,
 		"palette_color_1": Color(1.0, 0.9, 0.9, 1.0),
 		"palette_color_2": Color(0.9, 1.0, 0.9, 1.0),
 		"palette_color_3": Color(0.9, 0.9, 1.0, 1.0),
@@ -241,6 +254,97 @@ static var PRESETS = {
 		"shadow_strength_color": Color(0.0, 0.0, 0.0, 1.0),
 		"highlight_strength_color": Color(1.0, 1.0, 1.0, 1.0),
 		"dither_color": Color(0.9, 0.9, 0.9, 1.0)
+	},
+	"256 Colors": {
+		"target_pixel_count": 512,
+		"color_steps": 256,
+		"edge_strength": 0.4,
+		"sharpness": 0.8,
+		"hue_shift": 0.0,
+		"saturation": 1.0,
+		"value": 1.0,
+		"contrast": 1.0,
+		"gamma": 1.0,
+		"brightness": 0.0,
+		"outline": 0.0,
+		"outline_color": Color(0.0, 0.0, 0.0, 1.0),
+		"use_palette": true,
+		"palette_color_count": 64,
+		"palette_color_1": Color(0.0, 0.0, 0.0, 1.0),
+		"palette_color_2": Color(0.133, 0.137, 0.137, 1.0),
+		"palette_color_3": Color(0.263, 0.271, 0.286, 1.0),
+		"palette_color_4": Color(0.384, 0.408, 0.443, 1.0),
+		"palette_color_5": Color(0.510, 0.545, 0.596, 1.0),
+		"palette_color_6": Color(0.651, 0.682, 0.729, 1.0),
+		"palette_color_7": Color(0.804, 0.824, 0.855, 1.0),
+		"palette_color_8": Color(0.961, 0.969, 0.980, 1.0),
+		"palette_color_9": Color(0.384, 0.365, 0.329, 1.0),
+		"palette_color_10": Color(0.522, 0.459, 0.396, 1.0),
+		"palette_color_11": Color(0.620, 0.549, 0.475, 1.0),
+		"palette_color_12": Color(0.682, 0.631, 0.537, 1.0),
+		"palette_color_13": Color(0.733, 0.686, 0.643, 1.0),
+		"palette_color_14": Color(0.800, 0.765, 0.694, 1.0),
+		"palette_color_15": Color(0.918, 0.859, 0.788, 1.0),
+		"palette_color_16": Color(1.0, 0.953, 0.839, 1.0),
+		"palette_color_17": Color(0.345, 0.192, 0.149, 1.0),
+		"palette_color_18": Color(0.451, 0.239, 0.231, 1.0),
+		"palette_color_19": Color(0.533, 0.314, 0.255, 1.0),
+		"palette_color_20": Color(0.604, 0.384, 0.298, 1.0),
+		"palette_color_21": Color(0.678, 0.431, 0.318, 1.0),
+		"palette_color_22": Color(0.835, 0.553, 0.420, 1.0),
+		"palette_color_23": Color(0.984, 0.667, 0.518, 1.0),
+		"palette_color_24": Color(1.0, 0.808, 0.498, 1.0),
+		"palette_color_25": Color(0.0, 0.153, 0.208, 1.0),
+		"palette_color_26": Color(0.0, 0.220, 0.314, 1.0),
+		"palette_color_27": Color(0.0, 0.302, 0.369, 1.0),
+		"palette_color_28": Color(0.043, 0.400, 0.498, 1.0),
+		"palette_color_29": Color(0.0, 0.435, 0.537, 1.0),
+		"palette_color_30": Color(0.196, 0.549, 0.655, 1.0),
+		"palette_color_31": Color(0.141, 0.682, 0.839, 1.0),
+		"palette_color_32": Color(0.533, 0.839, 1.0, 1.0),
+		"palette_color_33": Color(0.400, 0.169, 0.161, 1.0),
+		"palette_color_34": Color(0.580, 0.212, 0.227, 1.0),
+		"palette_color_35": Color(0.714, 0.302, 0.275, 1.0),
+		"palette_color_36": Color(0.804, 0.369, 0.275, 1.0),
+		"palette_color_37": Color(0.890, 0.471, 0.251, 1.0),
+		"palette_color_38": Color(0.976, 0.608, 0.306, 1.0),
+		"palette_color_39": Color(1.0, 0.737, 0.306, 1.0),
+		"palette_color_40": Color(1.0, 0.914, 0.286, 1.0),
+		"palette_color_41": Color(0.157, 0.169, 0.290, 1.0),
+		"palette_color_42": Color(0.227, 0.271, 0.408, 1.0),
+		"palette_color_43": Color(0.380, 0.373, 0.518, 1.0),
+		"palette_color_44": Color(0.478, 0.467, 0.600, 1.0),
+		"palette_color_45": Color(0.525, 0.565, 0.698, 1.0),
+		"palette_color_46": Color(0.588, 0.698, 0.851, 1.0),
+		"palette_color_47": Color(0.780, 0.839, 1.0, 1.0),
+		"palette_color_48": Color(0.776, 0.925, 1.0, 1.0),
+		"palette_color_49": Color(0.0, 0.133, 0.098, 1.0),
+		"palette_color_50": Color(0.0, 0.196, 0.129, 1.0),
+		"palette_color_51": Color(0.090, 0.290, 0.106, 1.0),
+		"palette_color_52": Color(0.133, 0.349, 0.094, 1.0),
+		"palette_color_53": Color(0.184, 0.412, 0.047, 1.0),
+		"palette_color_54": Color(0.318, 0.533, 0.133, 1.0),
+		"palette_color_55": Color(0.490, 0.643, 0.176, 1.0),
+		"palette_color_56": Color(0.651, 0.800, 0.204, 1.0),
+		"palette_color_57": Color(0.094, 0.122, 0.184, 1.0),
+		"palette_color_58": Color(0.137, 0.196, 0.302, 1.0),
+		"palette_color_59": Color(0.145, 0.275, 0.420, 1.0),
+		"palette_color_60": Color(0.212, 0.420, 0.541, 1.0),
+		"palette_color_61": Color(0.192, 0.557, 0.722, 1.0),
+		"palette_color_62": Color(0.255, 0.698, 0.890, 1.0),
+		"palette_color_63": Color(0.322, 0.824, 1.0, 1.0),
+		"palette_color_64": Color(0.455, 0.961, 0.992, 1.0),
+		"dither_amount": 0.0,
+		"dither_blend": 0.5,
+		"dither_threshold": 0.5,
+		"shadow_sensitivity": 1.0,
+		"dot_size": 1.0,
+		"PostProcessOutline": 0,
+		"Shadow_Strength": 0.1,
+		"Highlight_Strength": 0.4,
+		"shadow_strength_color": Color(0.0, 0.0, 0.0, 1.0),
+		"highlight_strength_color": Color(1.0, 1.0, 1.0, 1.0),
+		"dither_color": Color(0.0, 0.0, 0.0, 1.0)
 	}
 }
 

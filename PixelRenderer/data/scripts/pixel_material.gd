@@ -1,5 +1,20 @@
 extends Node
 
+# PixelMaterial Controller for Godot 4.6 with 256-color palette support
+# 
+# 256-Color Support:
+# - The shader supports up to 64 colors in the palette (palette_color_1 to palette_color_64)
+# - Use the "256 Colors" preset for optimal 256-color palette handling
+# - PIX256 color preset contains full 256-color palette from Lospec
+# - Palette colors are applied dynamically via _apply_palette_colors()
+# - For more colors beyond 64, consider extending shader or using color quantization
+# 
+# Usage:
+# 1. Load preset "256 Colors" for recommended settings
+# 2. Select "PIX256" from color presets for 256-color palette
+# 3. Adjust palette_color_count in presets (stored but UI not yet implemented)
+# 4. Fine-tune with color_steps and use_palette toggles
+
 const PIXEL_MATERIAL = preload("res://PixelRenderer/data/PixelMaterial.tres")
 const CONFIG_FILE_PATH = "user://material_config.cfg"
 const PRESETS_FILE_PATH = "user://material_presets.cfg"
@@ -37,6 +52,10 @@ const PIXELART_STYLIZER = preload("res://PixelRenderer/data/pixelart_stylizer.tr
 @onready var use_palette_color_8: ColorPickerButton = %UsePaletteColor8
 
 @onready var reset_material_button: Button = %ResetMaterialButton
+
+# Dynamic palette color pickers (9-256)
+var palette_color_pickers: Dictionary = {}  # Stores references to all 256 color pickers
+var palette_color_container: Container = null  # Reference to container for palette colors
 
 @onready var dither_amount_slider: HSlider = %DitherAmountSlider
 @onready var dither_blend_slider: HSlider = %DitherBlendSlider
@@ -95,6 +114,7 @@ const DEFAULT_VALUES = {
 	"shadow_color": Color(0.0, 0.0, 0.0, 1.0),
 	"highlight_color": Color(1.0, 1.0, 1.0, 1.0),
 	"use_palette": true,  # Match shader default
+	"palette_color_count": 8,  # Number of palette colors (2-64 for shader, can extend)
 	"palette_color_1": Color(0.051, 0.169, 0.271, 1.0),
 	"palette_color_2": Color(0.125, 0.235, 0.337, 1.0),
 	"palette_color_3": Color(0.329, 0.306, 0.408, 1.0),
@@ -121,6 +141,10 @@ var filtered_color_presets: Array[String] = []
 var current_color_preset_name: String = ""
 var is_loading_color_preset: bool = false
 
+# Extended palette storage for 64+ colors (like PIX256)
+var extended_palette_colors: Dictionary = {}  # Stores palette_color_N for all colors
+var current_palette_color_count: int = 8  # Track active palette color count
+
 # Reference to the main PixelRenderer node for accessing rendered image
 @onready var pixel_renderer: TextureRect = %PixelCanvas
 
@@ -137,7 +161,28 @@ func _ready():
 	BUILTIN_PRESETS = BuiltinPresets.get_all_presets()
 	BUILTIN_COLOR_PRESETS = BuiltinColorPresets.get_all_color_presets()
 	
-
+	# Find the palette color container
+	var parent = use_palette_color_1.get_parent()
+	if parent:
+		palette_color_container = parent
+	
+	# Collect references to palette color pickers 9-256 from the scene
+	# These are now created in the scene, not dynamically
+	for i in range(9, 257):
+		var picker_key = "use_palette_color_" + str(i)
+		var picker_name = "UsePaletteColor" + str(i)
+		
+		# Try to get the picker node using unique name
+		var picker = palette_color_container.get_node_or_null(picker_name)
+		if picker:
+			palette_color_pickers[picker_key] = picker
+			# Connect signal dynamically
+			var color_index = i
+			picker.color_changed.connect(func(color):
+				_on_palette_color_changed(color_index, color)
+			)
+	
+	_update_console("Loaded " + str(palette_color_pickers.size()) + " extended palette color pickers from scene")
 	
 	# Load saved values or defaults
 	_load_saved_values()
@@ -148,12 +193,33 @@ func _ready():
 	# Initialize presets
 	_initialize_presets()
 	_initialize_color_presets()
-	
 	# Connect UI signals
 	_connect_signals()
 	
 	# Apply initial values to shader
 	_apply_all_values()
+
+func _on_palette_color_changed(index: int, color: Color):
+	"""Handle dynamic palette color changes for all 256 colors"""
+	var color_key = "palette_color_" + str(index)
+	
+	# Update shader parameter
+	PIXEL_MATERIAL.set_shader_parameter(color_key, color)
+	
+	# Update extended palette storage if this color is in a loaded extended palette
+	if extended_palette_colors.has(color_key):
+		extended_palette_colors[color_key] = color
+	
+	# Handle Custom preset switching for extended palettes
+	if not is_loading_color_preset:
+		if current_color_preset_name != "Custom":
+			_switch_to_custom_preset()
+		else:
+			# Update custom colors storage
+			all_color_presets["Custom"][color_key] = color
+			_save_custom_colors()
+	
+	_save_current_values()
 
 func _initialize_presets():
 	# Load presets from file
@@ -323,7 +389,7 @@ func _save_current_as_preset(preset_name: String):
 	_update_console("Saved preset: " + preset_name)
 
 func _get_current_values() -> Dictionary:
-	return {
+	var result = {
 		"target_pixel_count": int(target_pixel_count_spin.value),
 		"color_steps": int(color_steps_spin.value),
 		"edge_strength": edge_strength_slider.value,
@@ -342,6 +408,7 @@ func _get_current_values() -> Dictionary:
 		"shadow_color": shadow_strength_color_picker.color,
 		"highlight_color": highlight_strength_color_picker.color,
 		"use_palette": use_palette_check_box.button_pressed,
+		"palette_color_count": current_palette_color_count,
 		"palette_color_1": use_palette_color_1.color,
 		"palette_color_2": use_palette_color_2.color,
 		"palette_color_3": use_palette_color_3.color,
@@ -357,6 +424,19 @@ func _get_current_values() -> Dictionary:
 		"dot_size": dither_dot_size_spin.value,
 		"dither_color": dither_dot_color.color
 	}
+	
+	# Add extended palette colors (9-256) to save
+	for i in range(9, 257):
+		var color_key = "palette_color_" + str(i)
+		var picker_key = "use_palette_color_" + str(i)
+		
+		# Prefer dynamic picker value if available
+		if palette_color_pickers.has(picker_key):
+			result[color_key] = palette_color_pickers[picker_key].color
+		elif extended_palette_colors.has(color_key):
+			result[color_key] = extended_palette_colors[color_key]
+	
+	return result
 
 func _delete_preset(preset_name: String):
 	if BUILTIN_PRESETS.has(preset_name):
@@ -404,7 +484,22 @@ func _update_color_preset_list():
 	color_preset_option_button.clear()
 	for i in range(filtered_color_presets.size()):
 		var preset_name = filtered_color_presets[i]
-		color_preset_option_button.add_item(preset_name)
+		var display_name = preset_name
+		
+		# Don't add extra info to Custom preset, only to extended palettes
+		if preset_name != "Custom":
+			# Check if this preset has extended colors (64+ colors)
+			var preset_data = all_color_presets[preset_name]
+			var color_count = 8
+			for j in range(1, 257):
+				if preset_data.has("palette_color_" + str(j)):
+					color_count = j
+			
+			# Add color count for extended palettes (without icon)
+			if color_count > 8:
+				display_name = preset_name + " (" + str(color_count) + ")"
+		
+		color_preset_option_button.add_item(display_name)
 		
 		# Select current preset if it matches
 		if preset_name == current_color_preset_name:
@@ -419,7 +514,21 @@ func _select_color_preset(preset_name: String):
 	
 	var preset_data = all_color_presets[preset_name]
 	
-	# Apply color preset to palette colors only
+	# Store extended palette colors for presets with 64+ colors
+	extended_palette_colors.clear()
+	current_palette_color_count = 8  # Default
+	
+	# Check if this is an extended palette (64+ colors)
+	var max_color_count = 8
+	for i in range(1, 257):  # Check up to 256 colors
+		var color_key = "palette_color_" + str(i)
+		if preset_data.has(color_key):
+			max_color_count = i
+			extended_palette_colors[color_key] = preset_data[color_key]
+	
+	current_palette_color_count = max_color_count
+	
+	# Apply first 8 colors to UI
 	use_palette_color_1.color = preset_data.get("palette_color_1", DEFAULT_VALUES.palette_color_1)
 	use_palette_color_2.color = preset_data.get("palette_color_2", DEFAULT_VALUES.palette_color_2)
 	use_palette_color_3.color = preset_data.get("palette_color_3", DEFAULT_VALUES.palette_color_3)
@@ -429,21 +538,37 @@ func _select_color_preset(preset_name: String):
 	use_palette_color_7.color = preset_data.get("palette_color_7", DEFAULT_VALUES.palette_color_7)
 	use_palette_color_8.color = preset_data.get("palette_color_8", DEFAULT_VALUES.palette_color_8)
 	
+	# Apply colors 9-256 to dynamic UI pickers if they exist
+	for i in range(9, 257):
+		var color_key = "palette_color_" + str(i)
+		var picker_key = "use_palette_color_" + str(i)
+		
+		if palette_color_pickers.has(picker_key):
+			var color = preset_data.get(color_key, Color.BLACK)
+			palette_color_pickers[picker_key].color = color
+	
 	# Enable palette mode when applying color preset
 	use_palette_check_box.button_pressed = true
 	
-	# Apply to shader
+	# Apply to shader with extended palette support
 	_apply_all_values()
 	
 	is_loading_color_preset = false
 	
-	_update_console("Loaded color preset: " + preset_name)
+	if max_color_count > 8:
+		_update_console("Loaded color preset: " + preset_name + " (" + str(max_color_count) + " colors)")
+	else:
+		_update_console("Loaded color preset: " + preset_name)
 
 func _compare_color_presets(a: String, b: String) -> bool:
-	# "Custom" comes first
+	# "Custom" comes first, then "PIX256" (extended palette)
 	if a == "Custom" and b != "Custom":
 		return true
 	elif a != "Custom" and b == "Custom":
+		return false
+	elif a == "PIX256" and b != "PIX256" and b != "Custom":
+		return true
+	elif a != "PIX256" and b == "PIX256" and a != "Custom":
 		return false
 	else:
 		return a < b
@@ -459,17 +584,12 @@ func _load_custom_colors():
 	var err = config.load(CUSTOM_COLORS_FILE_PATH)
 	
 	if err == OK:
-		# Load saved custom colors
-		var custom_colors = {
-			"palette_color_1": config.get_value("custom", "palette_color_1", DEFAULT_VALUES.palette_color_1),
-			"palette_color_2": config.get_value("custom", "palette_color_2", DEFAULT_VALUES.palette_color_2),
-			"palette_color_3": config.get_value("custom", "palette_color_3", DEFAULT_VALUES.palette_color_3),
-			"palette_color_4": config.get_value("custom", "palette_color_4", DEFAULT_VALUES.palette_color_4),
-			"palette_color_5": config.get_value("custom", "palette_color_5", DEFAULT_VALUES.palette_color_5),
-			"palette_color_6": config.get_value("custom", "palette_color_6", DEFAULT_VALUES.palette_color_6),
-			"palette_color_7": config.get_value("custom", "palette_color_7", DEFAULT_VALUES.palette_color_7),
-			"palette_color_8": config.get_value("custom", "palette_color_8", DEFAULT_VALUES.palette_color_8),
-		}
+		# Load saved custom colors (1-256)
+		var custom_colors = {}
+		for i in range(1, 257):
+			var color_key = "palette_color_" + str(i)
+			custom_colors[color_key] = config.get_value("custom", color_key, DEFAULT_VALUES.get(color_key, Color.BLACK))
+		
 		all_color_presets["Custom"] = custom_colors
 		_update_console("Loaded custom colors from file")
 	else:
@@ -479,31 +599,39 @@ func _save_custom_colors():
 	var config = ConfigFile.new()
 	var custom_colors = all_color_presets["Custom"]
 	
-	# Save custom colors to file
-	config.set_value("custom", "palette_color_1", custom_colors.palette_color_1)
-	config.set_value("custom", "palette_color_2", custom_colors.palette_color_2)
-	config.set_value("custom", "palette_color_3", custom_colors.palette_color_3)
-	config.set_value("custom", "palette_color_4", custom_colors.palette_color_4)
-	config.set_value("custom", "palette_color_5", custom_colors.palette_color_5)
-	config.set_value("custom", "palette_color_6", custom_colors.palette_color_6)
-	config.set_value("custom", "palette_color_7", custom_colors.palette_color_7)
-	config.set_value("custom", "palette_color_8", custom_colors.palette_color_8)
+	# Save all custom colors to file (1-256)
+	for i in range(1, 257):
+		var color_key = "palette_color_" + str(i)
+		if custom_colors.has(color_key):
+			config.set_value("custom", color_key, custom_colors[color_key])
 	
 	config.save(CUSTOM_COLORS_FILE_PATH)
 	_update_console("Custom colors saved to " + CUSTOM_COLORS_FILE_PATH)
 
 func _switch_to_custom_preset():
-	# Update the Custom preset with current colors
-	var current_colors = {
-		"palette_color_1": use_palette_color_1.color,
-		"palette_color_2": use_palette_color_2.color,
-		"palette_color_3": use_palette_color_3.color,
-		"palette_color_4": use_palette_color_4.color,
-		"palette_color_5": use_palette_color_5.color,
-		"palette_color_6": use_palette_color_6.color,
-		"palette_color_7": use_palette_color_7.color,
-		"palette_color_8": use_palette_color_8.color,
-	}
+	# Update the Custom preset with current colors (1-256)
+	var current_colors = {}
+	
+	# Add first 8 colors from UI pickers
+	current_colors["palette_color_1"] = use_palette_color_1.color
+	current_colors["palette_color_2"] = use_palette_color_2.color
+	current_colors["palette_color_3"] = use_palette_color_3.color
+	current_colors["palette_color_4"] = use_palette_color_4.color
+	current_colors["palette_color_5"] = use_palette_color_5.color
+	current_colors["palette_color_6"] = use_palette_color_6.color
+	current_colors["palette_color_7"] = use_palette_color_7.color
+	current_colors["palette_color_8"] = use_palette_color_8.color
+	
+	# Add extended colors from dynamic pickers (9-256)
+	for i in range(9, 257):
+		var picker_key = "use_palette_color_" + str(i)
+		var color_key = "palette_color_" + str(i)
+		
+		if palette_color_pickers.has(picker_key):
+			current_colors[color_key] = palette_color_pickers[picker_key].color
+		elif extended_palette_colors.has(color_key):
+			current_colors[color_key] = extended_palette_colors[color_key]
+	
 	all_color_presets["Custom"] = current_colors
 	
 	# Save custom colors to file
@@ -516,6 +644,9 @@ func _switch_to_custom_preset():
 func _load_saved_values():
 	var config = ConfigFile.new()
 	var err = config.load(CONFIG_FILE_PATH)
+	
+	# Set loading flag to prevent saving while loading
+	is_loading_color_preset = true
 	
 	if err == OK:
 		# Load saved values
@@ -538,7 +669,7 @@ func _load_saved_values():
 		highlight_strength_color_picker.color = config.get_value("material", "highlight_color", DEFAULT_VALUES.highlight_color)
 		use_palette_check_box.button_pressed = config.get_value("material", "use_palette", DEFAULT_VALUES.use_palette)
 		
-		# Load palette colors
+		# Load palette colors (1-8 from UI, 9-256 to dynamic pickers)
 		use_palette_color_1.color = config.get_value("material", "palette_color_1", DEFAULT_VALUES.palette_color_1)
 		use_palette_color_2.color = config.get_value("material", "palette_color_2", DEFAULT_VALUES.palette_color_2)
 		use_palette_color_3.color = config.get_value("material", "palette_color_3", DEFAULT_VALUES.palette_color_3)
@@ -547,6 +678,19 @@ func _load_saved_values():
 		use_palette_color_6.color = config.get_value("material", "palette_color_6", DEFAULT_VALUES.palette_color_6)
 		use_palette_color_7.color = config.get_value("material", "palette_color_7", DEFAULT_VALUES.palette_color_7)
 		use_palette_color_8.color = config.get_value("material", "palette_color_8", DEFAULT_VALUES.palette_color_8)
+		
+		# Load extended palette colors (9-256) to dynamic pickers
+		for i in range(9, 257):
+			var color_key = "palette_color_" + str(i)
+			var picker_key = "use_palette_color_" + str(i)
+			var saved_color = config.get_value("material", color_key, Color.BLACK)
+			
+			# Set to extended palette storage
+			extended_palette_colors[color_key] = saved_color
+			
+			# Set to dynamic picker if it exists
+			if palette_color_pickers.has(picker_key):
+				palette_color_pickers[picker_key].color = saved_color
 		
 		# Load dithering parameters
 		dither_amount_slider.value = config.get_value("material", "dither_amount", DEFAULT_VALUES.dither_amount)
@@ -561,6 +705,9 @@ func _load_saved_values():
 	else:
 		# Load default values if no config file exists
 		_load_default_values()
+	
+	# Clear loading flag
+	is_loading_color_preset = false
 
 func _load_default_values():
 	# Set default values from DEFAULT_VALUES constant
@@ -630,8 +777,9 @@ func _save_current_values():
 	config.set_value("material", "shadow_color", shadow_strength_color_picker.color)
 	config.set_value("material", "highlight_color", highlight_strength_color_picker.color)
 	config.set_value("material", "use_palette", use_palette_check_box.button_pressed)
+	config.set_value("material", "palette_color_count", current_palette_color_count)
 	
-	# Save palette colors
+	# Save palette colors (1-256)
 	config.set_value("material", "palette_color_1", use_palette_color_1.color)
 	config.set_value("material", "palette_color_2", use_palette_color_2.color)
 	config.set_value("material", "palette_color_3", use_palette_color_3.color)
@@ -640,6 +788,20 @@ func _save_current_values():
 	config.set_value("material", "palette_color_6", use_palette_color_6.color)
 	config.set_value("material", "palette_color_7", use_palette_color_7.color)
 	config.set_value("material", "palette_color_8", use_palette_color_8.color)
+	
+	# Save extended palette colors (9-256)
+	for i in range(9, 257):
+		var color_key = "palette_color_" + str(i)
+		var picker_key = "use_palette_color_" + str(i)
+		var color_to_save = Color.BLACK
+		
+		# Prefer dynamic picker value if available
+		if palette_color_pickers.has(picker_key):
+			color_to_save = palette_color_pickers[picker_key].color
+		elif extended_palette_colors.has(color_key):
+			color_to_save = extended_palette_colors[color_key]
+		
+		config.set_value("material", color_key, color_to_save)
 	
 	# Save dithering parameters
 	config.set_value("material", "dither_amount", dither_amount_slider.value)
@@ -728,14 +890,9 @@ func _apply_all_values():
 	PIXEL_MATERIAL.set_shader_parameter("outline_thickness", outline_spin.value)
 	PIXEL_MATERIAL.set_shader_parameter("outline_color", outline_color_picker.color)
 	PIXEL_MATERIAL.set_shader_parameter("use_palette", use_palette_check_box.button_pressed)
-	PIXEL_MATERIAL.set_shader_parameter("palette_color_1", use_palette_color_1.color)
-	PIXEL_MATERIAL.set_shader_parameter("palette_color_2", use_palette_color_2.color)
-	PIXEL_MATERIAL.set_shader_parameter("palette_color_3", use_palette_color_3.color)
-	PIXEL_MATERIAL.set_shader_parameter("palette_color_4", use_palette_color_4.color)
-	PIXEL_MATERIAL.set_shader_parameter("palette_color_5", use_palette_color_5.color)
-	PIXEL_MATERIAL.set_shader_parameter("palette_color_6", use_palette_color_6.color)
-	PIXEL_MATERIAL.set_shader_parameter("palette_color_7", use_palette_color_7.color)
-	PIXEL_MATERIAL.set_shader_parameter("palette_color_8", use_palette_color_8.color)
+	
+	# Apply palette colors dynamically
+	_apply_palette_colors()
 	
 	# Apply dithering parameters
 	PIXEL_MATERIAL.set_shader_parameter("dither_amount", dither_amount_slider.value)
@@ -1121,6 +1278,51 @@ func _sample_dominant_colors(image: Image, num_colors: int) -> Array[Color]:
 	
 	_update_console("Found " + str(dominant_colors.size()) + " dominant colors from " + str(total_pixels) + " sampled pixels")
 	return dominant_colors
+
+func _apply_palette_colors():
+	"""
+	Apply palette colors to shader, dynamically handling 8-256+ colors
+	Supports extended palettes like PIX256
+	"""
+	# Apply first 8 colors from UI pickers
+	var palette_colors = [
+		use_palette_color_1.color if has_node("%UsePaletteColor1") else DEFAULT_VALUES.palette_color_1,
+		use_palette_color_2.color if has_node("%UsePaletteColor2") else DEFAULT_VALUES.palette_color_2,
+		use_palette_color_3.color if has_node("%UsePaletteColor3") else DEFAULT_VALUES.palette_color_3,
+		use_palette_color_4.color if has_node("%UsePaletteColor4") else DEFAULT_VALUES.palette_color_4,
+		use_palette_color_5.color if has_node("%UsePaletteColor5") else DEFAULT_VALUES.palette_color_5,
+		use_palette_color_6.color if has_node("%UsePaletteColor6") else DEFAULT_VALUES.palette_color_6,
+		use_palette_color_7.color if has_node("%UsePaletteColor7") else DEFAULT_VALUES.palette_color_7,
+		use_palette_color_8.color if has_node("%UsePaletteColor8") else DEFAULT_VALUES.palette_color_8,
+	]
+	
+	# Apply basic 8 colors
+	for i in range(8):
+		PIXEL_MATERIAL.set_shader_parameter("palette_color_" + str(i + 1), palette_colors[i])
+	
+	# Apply extended colors from dynamic pickers and stored palette (9-256)
+	for i in range(9, 257):
+		var color_key = "palette_color_" + str(i)
+		var color = Color.BLACK
+		
+		# First check if we have a dynamic picker for this color
+		var picker_key = "use_palette_color_" + str(i)
+		if palette_color_pickers.has(picker_key):
+			color = palette_color_pickers[picker_key].color
+		# Then check extended palette storage
+		elif extended_palette_colors.has(color_key):
+			color = extended_palette_colors[color_key]
+		else:
+			# Fall back to default values
+			color = DEFAULT_VALUES.get(color_key, Color.BLACK)
+		
+		# Only apply to shader if within shader's supported range (up to 64)
+		if i <= 64:
+			PIXEL_MATERIAL.set_shader_parameter(color_key, color)
+	
+	# Set the palette color count (number of colors to use)
+	var palette_count = current_palette_color_count
+	PIXEL_MATERIAL.set_shader_parameter("palette_color_count", min(palette_count, 64))
 
 func _apply_sampled_colors_to_palette(colors: Array[Color]):
 	"""
