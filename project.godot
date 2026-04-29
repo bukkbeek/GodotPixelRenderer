@@ -14,7 +14,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="Pixel Renderer"
+config/name="Godot Pixel Renderer"
+config/description="Complete 3D to Pixel Toolkit"
 run/main_scene="uid://y4o6ttmh8hb4"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://d3o8isbpbhfrw"

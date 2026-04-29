@@ -53,8 +53,32 @@ background_energy_multiplier = 2.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5aq5t"]
 bg_color = Color(0.12549, 0.12549, 0.12549, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmb7r"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.16856408, 0.26025632, 0.49482346, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l23g4"]
 bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fixve"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.5858551, 0.2870196, 0.3748243, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkbio"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -252,6 +276,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 36)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_wmb7r")
 text = "LOAD"
 icon = ExtResource("4_sen5r")
 expand_icon = true
@@ -382,7 +407,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_l23g4")
-text = " OUTPUT [MANUAL]"
+text = " OUTPUT"
 horizontal_alignment = 1
 vertical_alignment = 2
 
@@ -456,11 +481,18 @@ clip_text = true
 [node name="Label4" type="Label" parent="MainUI/LeftPanel/ExportOptions4" unique_id=153435805]
 layout_mode = 2
 
+[node name="IgnoreAnimation" type="CheckBox" parent="MainUI/LeftPanel/ExportOptions4" unique_id=205192751]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Ignore animation when exporting 360 frames"
+text = "STILL"
+
 [node name="ExportButton" type="Button" parent="MainUI/LeftPanel/ExportOptions4" unique_id=1896834076]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 tooltip_text = "Export from preview angle"
+theme_override_styles/normal = SubResource("StyleBoxFlat_fixve")
 text = "EXPORT"
 icon = ExtResource("9_l23g4")
 expand_icon = true
@@ -506,10 +538,11 @@ alignment = 2
 
 [node name="Export360" type="Button" parent="MainUI/LeftPanel/HBoxContainer10" unique_id=1752145479]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-tooltip_text = "Export 360° Animation Frames"
-text = "EXPORT"
+tooltip_text = "Export 360° Animation Frames
+set STEP before exporting 360° frames"
+text = "360"
 icon = ExtResource("9_l23g4")
 expand_icon = true
 
@@ -521,16 +554,14 @@ tooltip_text = "Terminate Export"
 icon = ExtResource("26_owbk2")
 expand_icon = true
 
-[node name="IgnoreAnimation" type="CheckBox" parent="MainUI/LeftPanel" unique_id=205192751]
-unique_name_in_owner = true
+[node name="HBoxContainer11" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=1159814529]
 layout_mode = 2
-tooltip_text = "ignore animation when exporting 360 frames"
-text = "STATIC EXPORT (skip animation)"
 
-[node name="ProgressBar" type="ProgressBar" parent="MainUI/LeftPanel" unique_id=1227814647]
+[node name="ProgressBar" type="ProgressBar" parent="MainUI/LeftPanel/HBoxContainer11" unique_id=1227814647]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=125006909]
 layout_mode = 2
@@ -586,7 +617,7 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_l23g4")
-text = "ADJUSTMENTS"
+text = "PREVIEW ADJUSTMENTS"
 horizontal_alignment = 1
 vertical_alignment = 2
 
@@ -789,6 +820,7 @@ size_flags_horizontal = 3
 [node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer2" unique_id=1441131716]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
+tooltip_text = "SCALE [Distance to model - smaller the bigger]"
 texture = ExtResource("11_5xf31")
 expand_mode = 2
 stretch_mode = 4
@@ -798,6 +830,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
+tooltip_text = "SCALE [Distance to model - smaller the bigger]"
 step = 0.1
 value = 4.0
 allow_greater = true
@@ -1627,6 +1660,7 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+tooltip_text = "Sample colors from original 3D model"
 theme_override_font_sizes/font_size = 16
 text = "SAMPLE"
 
@@ -1646,7 +1680,7 @@ unique_name_in_owner = true
 
 [node name="Skeleton_Minion" parent="ModelsHandler/ModelsSpawner/TempModel" unique_id=2735585 instance=ExtResource("27_wwtbg")]
 
-[node name="Skeleton3D" parent="ModelsHandler/ModelsSpawner/TempModel/Skeleton_Minion/Rig" parent_id_path=PackedInt32Array(2735585, 162773505) index="0" unique_id=1171304800]
+[node name="Skeleton3D" parent="ModelsHandler/ModelsSpawner/TempModel/Skeleton_Minion/Rig" parent_id_path=PackedInt32Array(2735585, 1928676785) index="0" unique_id=589918133]
 bones/1/position = Vector3(0, 0.392064, 0)
 bones/1/rotation = Quaternion(-1.11123e-10, 0.0431578, 2.57241e-09, 0.999068)
 bones/2/rotation = Quaternion(-6.93889e-18, 7.10543e-15, 4.93038e-32, 1)
@@ -1727,7 +1761,7 @@ bones/39/rotation = Quaternion(-0.707107, -7.27951e-08, -7.27951e-08, 0.707107)
 bones/40/position = Vector3(-0.510844, 0.788312, 0.0597369)
 bones/40/rotation = Quaternion(-0.758253, -1.52737e-07, 0.651961, -1.11759e-08)
 
-[node name="AnimationPlayer" parent="ModelsHandler/ModelsSpawner/TempModel/Skeleton_Minion" index="1" unique_id=1474267153]
+[node name="AnimationPlayer" parent="ModelsHandler/ModelsSpawner/TempModel/Skeleton_Minion" index="1" unique_id=475656732]
 autoplay = &"Idle"
 
 [node name="Grid" type="MeshInstance3D" parent="ModelsHandler/ModelsSpawner" unique_id=399307617]

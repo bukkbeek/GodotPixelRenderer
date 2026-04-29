@@ -5,7 +5,7 @@
   <img src="Sample/PixelRendererGif.gif" alt="Pixel Renderer" width="256" height="256">
 </div>
 
-A powerful **3D to Pixel Art Renderer** built with Godot 4.4+ that transforms 3D models and animations into retro-style pixel art with customizable effects and frame by frame animation export capabilities.
+A powerful **3D to Pixel Art Renderer** built with Godot 4.4+ that exports 3D models and animations into retro-style pixel art with customizable effects and frame by frame animation export capabilities.
 
 ![Godot Badge](https://img.shields.io/badge/Godot-4.4+-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
@@ -17,49 +17,44 @@ A powerful **3D to Pixel Art Renderer** built with Godot 4.4+ that transforms 3D
 
 ---
 
-**Watch GFS - Games From Scratch review video on Youtube**
-
-<div align="center">
-  <a href="https://youtu.be/uRmB3MXzR_Q?si=s-mqPHxdC0RcUgZr" target="_blank">
-    <img src="https://img.youtube.com/vi/uRmB3MXzR_Q/maxresdefault.jpg" alt="GFS Review Video" style="border-radius: 8px;">
-  </a>
-</div>
+**Watch GFS (Games From Scratch) review video on Youtube**
 
 [![Watch on YouTube](https://img.shields.io/badge/YouTube-GFS%20Review-red?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/uRmB3MXzR_Q?si=s-mqPHxdC0RcUgZr)
 
-## 👨‍💻 Developer
+## Developer
 
-Created by **[bukkbeek](https://bukkbeek.github.io/)** - an independent game developer passionate about pixel art and retro aesthetics.
+Created by **[bukkbeek](https://bukkbeek.github.io/)**. Visit [bukkbeek.github.io](https://bukkbeek.github.io/) for more details.
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=github&logoColor=white)](https://bukkbeek.github.io/)
 [![Itch.io](https://img.shields.io/badge/Itch.io-FA5C5C?style=for-the-badge&logo=itchdotio&logoColor=white)](https://bukkbeek.itch.io/)
 
-## 📥 Downloads
-### 🎮 Get Pixel Renderer
+## Downloads
+### Get Pixel Renderer
 [![GitHub](https://img.shields.io/badge/GitHub-Free%20%26%20Open%20Source-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/bukkbeek/GodotPixelRenderer)
 [![Itch.io](https://img.shields.io/badge/Itch.io-Compiled%20Version-FA5C5C?style=for-the-badge&logo=itchdotio&logoColor=white)](https://bukkbeek.itch.io/pixel-renderer)
+
 [![AUR](https://img.shields.io/aur/version/godot-pixel-renderer-git?style=for-the-badge&logo=archlinux&logoColor=white)](https://aur.archlinux.org/packages/godot-pixel-renderer-git)
 
-- **🆓 [GitHub](https://github.com/bukkbeek/GodotPixelRenderer)**: Free and open source
-- **💰 [Itch.io](https://bukkbeek.itch.io/pixel-renderer)**: Compiled version (support the developer!)
-- **🆓 [AUR](https://aur.archlinux.org/packages/godot-pixel-renderer-git)**: Free and open source, for Arch Linux users
+*Note: Arch Linux version is independently maintained*
 
 
-## ✨ Features
 
-### 🎨 Pixel Art Rendering
+## Features
+
+### Pixel Art Rendering
 - **Real-time 3D to pixel art conversion** with customizable pixelation (8-800 pixels)
 - **Color quantization** with adjustable steps (2-32 colors) and 8-color palette support
 - **Advanced shader effects**: edge detection, sharpening, dithering, and outlines
 - **Post-processing controls**: HSV adjustments, contrast, gamma, and brightness
+- **Specular and Normal map** export 
 
-### 🎬 Animation & Export
+### Animation & Export
 - **Frame-by-frame animation export** to PNG sequences with progress tracking
 - **Flexible export settings**: custom frame ranges, variable FPS (1-120), resolution scaling
 - **GLB/GLTF model support** with animation playback controls and auto-refresh detection
-- **Camera system**: orthographic projection with positioning, rotation, and lighting controls
 
-### 🎛️ User Experience
+
+### User Experience
 - **Intuitive interface** with organized control panels and real-time preview
 - **Preset configurations** and console logging for detailed feedback
 - **Export management** with custom paths, filename prefixes, and batch capabilities
@@ -70,12 +65,7 @@ Created by **[bukkbeek](https://bukkbeek.github.io/)** - an independent game dev
   <img src="Sample/minion_normals.gif" alt="Minion Normals" style="width: 40%; object-fit: contain;"/>
 </div>
 
-## 🚀 Quick Start
-
-### Requirements
-- **Godot Engine 4.4+**
-- **OpenGL 3.3+** compatible graphics card
-- **4GB RAM** minimum (8GB recommended)
+## Quick Start
 
 ### Installation
 
@@ -90,10 +80,9 @@ Created by **[bukkbeek](https://bukkbeek.github.io/)** - an independent game dev
    - Press `F5` to run
    - Select `PixelRenderer/PixelRenderer.tscn` if prompted
 
-## 📖 Usage
 
 ### Basic Workflow
-1. **Load Model**: Click "Load Model" and select GLB/GLTF file
+1. **Load Model**: Click `Load Model` and select GLB/GLTF file
 2. **Configure Effects**: Adjust pixelation, colors, and shader parameters
 3. **Set Camera**: Position and frame your model using camera controls
 4. **Export**: Choose output directory, set frame range/FPS, and export PNG sequence
@@ -104,9 +93,9 @@ Created by **[bukkbeek](https://bukkbeek.github.io/)** - an independent game dev
 - **Effects**: Pixelation slider, color steps, palette mode, and post-processing
 - **Export**: Directory selection, resolution scaling, and filename customization
 
-## ��️ Technical Details
+## Technical Details
 
-### Core Architecture
+### Project structure
 - **`PixelRenderer.gd`**: Main controller and export system
 - **`models_handler.gd`**: 3D model positioning and camera controls
 - **`models_spawner.gd`**: Model loading and animation management
@@ -116,48 +105,49 @@ Created by **[bukkbeek](https://bukkbeek.github.io/)** - an independent game dev
 ### Export System
 Captures animation frames using SubViewport rendering with real-time pixel art effects, nearest-neighbor scaling, and PNG output with transparency support.
 
-## 🤝 Contributing & Support
+## Contributing & Support
 
 ### Get Involved
-- **⭐ Star** this repository
-- **🐛 Report issues** on [GitHub Issues](https://github.com/bukkbeek/GodotPixelRenderer/issues)
-- **💡 Submit** pull requests and feature suggestions
+- ★ *Star* this repository
+- Report issues on [GitHub Issues](https://github.com/bukkbeek/GodotPixelRenderer/issues)
+- Submit PRs and feature suggestions
 
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
-## 📋 Changelog
+## Changelog
+
+### v1.3 - April 29, 2026
+- `Main` updated to Godot 4.6
+- Static frame export by (by [Ignas](https://github.com/ignoxx))
+- Minor updates to UI & tooltips
 
 ### v1.2 - August 15, 2025
-- **✨ New Features:**
-  - Added 360 rendering and variable resolution support (by [Slavaitis](https://github.com/Slavaitis))
+- 360 rendering and variable resolution support (by [Slavaitis](https://github.com/Slavaitis))
 - Gizmo location changed
 - Link to GitHub repo added
 
 ### v1.1.1 - July 25, 2025
-- **✨ New Features:**
-  - Added normal maps rendering support (by [Viktor Edén](https://github.com/HolyAcorn))
-  - Added specular maps rendering support (by [Viktor Edén](https://github.com/HolyAcorn))
+  - Normal maps rendering support (by [Viktor Edén](https://github.com/HolyAcorn))
+  - Specular maps rendering support (by [Viktor Edén](https://github.com/HolyAcorn))
   - mode selection will automatically trigger color remap toggle
 
 ### v1.1 - July 23, 2025
-- **Bugs Fixed:**
-  - Fixed animation rendering and export issues
-  - Fixed background rendering problems
-  - Fixed transparent background rendering
+  - Bug fix: animation rendering and export issues
+  - Bug fix: background rendering problems
+  - Bug fix: transparent background rendering
 
 ### v1.0 - July 22, 2025
-- **🎉 Initial Release**
-  - *Note: This initial release contained several bugs that were addressed in subsequent updates*
+- **Initial Release**
+- *Note: This initial release contained several bugs that were addressed in subsequent updates*
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-Thanks to the **Godot Engine** community, **Lospec** pixel art community, and **KayKit** for the default skeleton asset.
+Thanks to the amzing **Godot** community, **Lospec** pixel art community, and **KayKit** for the default skeleton asset.
 
-Thanks to:
-- Viktor Edén (github.com/HolyAcorn) for making the normal/ specular maps rendering features
 
-### 🤖 AI Development Assistance
-This project was developed with the assistance of **Claude Sonnet** through **Cursor AI** as a coding assistant, helping to enhance development efficiency and code quality.
+
+### AI Development assistance
+This project was developed with the assistance of **Claude Sonnet** through **Cursor** as a coding assistant, helping to enhance development efficiency and code quality.
