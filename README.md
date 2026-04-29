@@ -5,7 +5,7 @@
   <img src="Sample/PixelRendererGif.gif" alt="Pixel Renderer" width="256" height="256">
 </div>
 
-A powerful **3D to Pixel Art Renderer** built with Godot 4.4+ that exports 3D models and animations into retro-style pixel art with customizable effects and frame by frame animation export capabilities.
+A powerful **3D to Pixel Art Renderer** built with Godot that exports 3D models and animations into retro-style pixel art with customizable effects and frame by frame animation export capabilities.
 
 ![Godot Badge](https://img.shields.io/badge/Godot-4.4+-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
