@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://y4o6ttmh8hb4"]
+[gd_scene format=3 uid="uid://y4o6ttmh8hb4"]
 
 [ext_resource type="Script" uid="uid://dhq1ywbp8nv12" path="res://PixelRenderer/data/scripts/PixelRenderer.gd" id="1_5ibnk"]
 [ext_resource type="Material" uid="uid://dn8s72rfum4y4" path="res://PixelRenderer/data/Gizmo.tres" id="2_6vt7t"]
@@ -68,103 +68,103 @@ bg_color = Color(0.140447, 0.140447, 0.140447, 1)
 [sub_resource type="ViewportTexture" id="ViewportTexture_6vt7t"]
 viewport_path = NodePath("SubViewport2")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vt7t"]
-bg_color = Color(0.117647, 0.117647, 0.117647, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilx0h"]
 bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vt7t"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6vt7t"]
 size = Vector2(100, 100)
 orientation = 0
 
-[node name="PixelRenderer" type="Node3D"]
+[node name="PixelRenderer" type="Node3D" unique_id=862826125]
 script = ExtResource("1_5ibnk")
 
-[node name="Gizmo" type="Node3D" parent="."]
+[node name="Gizmo" type="Node3D" parent="." unique_id=1547141048]
 
-[node name="Axis" type="MeshInstance3D" parent="Gizmo"]
+[node name="Axis" type="MeshInstance3D" parent="Gizmo" unique_id=1615058094]
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 visible = false
 mesh = SubResource("BoxMesh_6vt7t")
 surface_material_override/0 = ExtResource("2_6vt7t")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Gizmo/Axis"]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Gizmo/Axis" unique_id=1469164691]
 transform = Transform3D(1, -4.37114e-08, -4.37114e-08, -4.37114e-08, -4.37114e-08, -1, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("BoxMesh_6vt7t")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_6vt7t")
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Gizmo/Axis"]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Gizmo/Axis" unique_id=1841715343]
 transform = Transform3D(-8.35187e-23, 1, -8.74228e-08, -1.91069e-15, -8.74228e-08, -1, -1, 0, 1.91069e-15, 0, 0, 0)
 mesh = SubResource("BoxMesh_6vt7t")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_6vt7t")
 
-[node name="Origin" type="MeshInstance3D" parent="Gizmo"]
+[node name="Origin" type="MeshInstance3D" parent="Gizmo" unique_id=206890802]
 unique_name_in_owner = true
 visible = false
 mesh = SubResource("SphereMesh_ilx0h")
 surface_material_override/0 = ExtResource("2_6vt7t")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Gizmo/Origin"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Gizmo/Origin" unique_id=771537008]
 mesh = SubResource("BoxMesh_x1hdl")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_6vt7t")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Gizmo/Origin"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Gizmo/Origin" unique_id=212444842]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_x1hdl")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_6vt7t")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=774987573]
 environment = SubResource("Environment_wwtbg")
 
-[node name="KeyLight" type="DirectionalLight3D" parent="."]
+[node name="KeyLight" type="DirectionalLight3D" parent="." unique_id=171751008]
 unique_name_in_owner = true
 transform = Transform3D(0.5, -0.75, 0.433013, 0, 0.5, 0.866026, -0.866025, -0.433013, 0.25, 0, 0, 0)
 shadow_enabled = true
 
-[node name="FillLight" type="DirectionalLight3D" parent="."]
+[node name="FillLight" type="DirectionalLight3D" parent="." unique_id=1993055016]
 unique_name_in_owner = true
 transform = Transform3D(0.866025, -0.433013, -0.25, 0, 0.5, -0.866025, 0.5, 0.75, 0.433013, 0, 0, 0)
 light_energy = 0.2
 shadow_enabled = true
 
-[node name="RimLight" type="DirectionalLight3D" parent="."]
+[node name="RimLight" type="DirectionalLight3D" parent="." unique_id=971808003]
 unique_name_in_owner = true
 transform = Transform3D(-0.931056, -0.182438, 0.315993, 0, 0.866025, 0.5, -0.364877, 0.465528, -0.806318, 0, 0, 0)
 light_energy = 100.0
 shadow_enabled = true
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1909532120]
 unique_name_in_owner = true
 position = Vector2i(0, 36)
 theme = ExtResource("2_l23g4")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=155390454]
 unique_name_in_owner = true
 transparent_bg = true
 canvas_item_default_texture_filter = 0
 size = Vector2i(800, 800)
 
-[node name="Camera" type="Camera3D" parent="SubViewport"]
+[node name="Camera" type="Camera3D" parent="SubViewport" unique_id=1960203510]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 100)
 projection = 1
 size = 4.0
 
-[node name="SubViewport2" type="SubViewport" parent="."]
+[node name="SubViewport2" type="SubViewport" parent="." unique_id=1119418755]
 transparent_bg = true
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport2"]
+[node name="Camera3D" type="Camera3D" parent="SubViewport2" unique_id=772702209]
 transform = Transform3D(0.599317, -0.566047, 0.566047, 0, 0.707107, 0.707107, -0.800512, -0.423781, 0.423781, 15.5528, 20, 11.5574)
 projection = 1
 size = 7.773
 
-[node name="ViewportBackgroundColorRect" type="ColorRect" parent="."]
+[node name="ViewportBackgroundColorRect" type="ColorRect" parent="." unique_id=430020273]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(800, 800)
 anchors_preset = 5
@@ -176,7 +176,7 @@ offset_bottom = 800.0
 grow_horizontal = 2
 color = Color(0.0911215, 0.0911214, 0.0911214, 1)
 
-[node name="MainUI" type="HBoxContainer" parent="."]
+[node name="MainUI" type="HBoxContainer" parent="." unique_id=1985222528]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -184,33 +184,33 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_l23g4")
 
-[node name="Spacer" type="Panel" parent="MainUI"]
+[node name="Spacer" type="Panel" parent="MainUI" unique_id=364733802]
 layout_mode = 2
 
-[node name="LeftPanel" type="VBoxContainer" parent="MainUI"]
+[node name="LeftPanel" type="VBoxContainer" parent="MainUI" unique_id=494380416]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="HBoxContainer9" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="HBoxContainer9" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=708287235]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer9"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer9" unique_id=830742264]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("4_x1hdl")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="TitleBar" type="VBoxContainer" parent="MainUI/LeftPanel/HBoxContainer9"]
+[node name="TitleBar" type="VBoxContainer" parent="MainUI/LeftPanel/HBoxContainer9" unique_id=2122763753]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/LeftPanel/HBoxContainer9/TitleBar"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/LeftPanel/HBoxContainer9/TitleBar" unique_id=1046863862]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer9/TitleBar/HBoxContainer"]
+[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer9/TitleBar/HBoxContainer" unique_id=1008977754]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -220,11 +220,11 @@ text = "GODOT PIXEL RENDERER"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/LeftPanel/HBoxContainer9/TitleBar"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/LeftPanel/HBoxContainer9/TitleBar" unique_id=2023643609]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label6" type="Label" parent="MainUI/LeftPanel/HBoxContainer9/TitleBar/HBoxContainer2"]
+[node name="Label6" type="Label" parent="MainUI/LeftPanel/HBoxContainer9/TitleBar/HBoxContainer2" unique_id=1321296505]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -235,20 +235,20 @@ text = "   3D to PixelArt toolkit"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="GitHubButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer9/TitleBar/HBoxContainer2"]
+[node name="GitHubButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer9/TitleBar/HBoxContainer2" unique_id=861301792]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 icon = ExtResource("5_fixve")
 expand_icon = true
 script = ExtResource("6_wmb7r")
 
-[node name="HSeparator4" type="HSeparator" parent="MainUI/LeftPanel"]
+[node name="HSeparator4" type="HSeparator" parent="MainUI/LeftPanel" unique_id=1805800866]
 layout_mode = 2
 
-[node name="SceneLoaded" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="SceneLoaded" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=1747590326]
 layout_mode = 2
 
-[node name="LoadSceneButton" type="Button" parent="MainUI/LeftPanel/SceneLoaded"]
+[node name="LoadSceneButton" type="Button" parent="MainUI/LeftPanel/SceneLoaded" unique_id=1520248130]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 36)
 layout_mode = 2
@@ -256,7 +256,7 @@ text = "LOAD"
 icon = ExtResource("4_sen5r")
 expand_icon = true
 
-[node name="LoadScenePath" type="Label" parent="MainUI/LeftPanel/SceneLoaded"]
+[node name="LoadScenePath" type="Label" parent="MainUI/LeftPanel/SceneLoaded" unique_id=901646435]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -264,13 +264,13 @@ theme_override_colors/font_color = Color(0.473976, 0.473976, 0.473976, 1)
 text = "://path-to-loaded-asset"
 clip_text = true
 
-[node name="HSeparator8" type="HSeparator" parent="MainUI/LeftPanel"]
+[node name="HSeparator8" type="HSeparator" parent="MainUI/LeftPanel" unique_id=582028116]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=160669645]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainUI/LeftPanel/HBoxContainer"]
+[node name="Label" type="Label" parent="MainUI/LeftPanel/HBoxContainer" unique_id=157613308]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -279,17 +279,17 @@ text = "ANIMATION"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="HBoxContainer7" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="HBoxContainer7" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=269050410]
 layout_mode = 2
 
-[node name="AnimationSelector" type="OptionButton" parent="MainUI/LeftPanel/HBoxContainer7"]
+[node name="AnimationSelector" type="OptionButton" parent="MainUI/LeftPanel/HBoxContainer7" unique_id=437618933]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 clip_text = true
 fit_to_longest_item = false
 
-[node name="AnimPlayButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer7"]
+[node name="AnimPlayButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer7" unique_id=1076583151]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -298,7 +298,7 @@ icon = ExtResource("4_6wj3c")
 icon_alignment = 1
 expand_icon = true
 
-[node name="AnimPauseButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer7"]
+[node name="AnimPauseButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer7" unique_id=729443623]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -307,7 +307,7 @@ icon = ExtResource("5_t0cwl")
 icon_alignment = 1
 expand_icon = true
 
-[node name="AnimStopButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer7"]
+[node name="AnimStopButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer7" unique_id=2057095337]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -316,7 +316,7 @@ icon = ExtResource("6_l23g4")
 icon_alignment = 1
 expand_icon = true
 
-[node name="AnimLoopToggleButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer7"]
+[node name="AnimLoopToggleButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer7" unique_id=1907869634]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -326,48 +326,48 @@ icon = ExtResource("7_wwtbg")
 icon_alignment = 1
 expand_icon = true
 
-[node name="AnimSlider" type="HSlider" parent="MainUI/LeftPanel"]
+[node name="AnimSlider" type="HSlider" parent="MainUI/LeftPanel" unique_id=1154789075]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Visual feedback for current frame"
 tick_count = 10
 ticks_on_borders = true
 
-[node name="ExportOptions2" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="ExportOptions2" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=2108748447]
 layout_mode = 2
 
-[node name="Label8" type="Label" parent="MainUI/LeftPanel/ExportOptions2"]
+[node name="Label8" type="Label" parent="MainUI/LeftPanel/ExportOptions2" unique_id=657631402]
 layout_mode = 2
 text = " START:"
 
-[node name="StartSpin" type="SpinBox" parent="MainUI/LeftPanel/ExportOptions2"]
+[node name="StartSpin" type="SpinBox" parent="MainUI/LeftPanel/ExportOptions2" unique_id=659691904]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Set animation start frame"
 value = 1.0
 
-[node name="Label2" type="Label" parent="MainUI/LeftPanel/ExportOptions2"]
+[node name="Label2" type="Label" parent="MainUI/LeftPanel/ExportOptions2" unique_id=17301131]
 layout_mode = 2
 text = " END:"
 
-[node name="EndSpin" type="SpinBox" parent="MainUI/LeftPanel/ExportOptions2"]
+[node name="EndSpin" type="SpinBox" parent="MainUI/LeftPanel/ExportOptions2" unique_id=196579856]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Set animation end frame"
 value = 30.0
 
-[node name="Label3" type="Label" parent="MainUI/LeftPanel/ExportOptions2"]
+[node name="Label3" type="Label" parent="MainUI/LeftPanel/ExportOptions2" unique_id=21790026]
 layout_mode = 2
 text = " FPS:"
 
-[node name="FpsSpin" type="SpinBox" parent="MainUI/LeftPanel/ExportOptions2"]
+[node name="FpsSpin" type="SpinBox" parent="MainUI/LeftPanel/ExportOptions2" unique_id=733727310]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Set animation playback speed"
 max_value = 60.0
 value = 12.0
 
-[node name="FrameResetButton" type="Button" parent="MainUI/LeftPanel/ExportOptions2"]
+[node name="FrameResetButton" type="Button" parent="MainUI/LeftPanel/ExportOptions2" unique_id=961095542]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -375,10 +375,10 @@ tooltip_text = "Reset animation parameters"
 icon = ExtResource("9_ilx0h")
 expand_icon = true
 
-[node name="HSeparator9" type="HSeparator" parent="MainUI/LeftPanel"]
+[node name="HSeparator9" type="HSeparator" parent="MainUI/LeftPanel" unique_id=1439936562]
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="MainUI/LeftPanel"]
+[node name="Label4" type="Label" parent="MainUI/LeftPanel" unique_id=620636217]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_l23g4")
@@ -386,17 +386,17 @@ text = " OUTPUT [MANUAL]"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="ExportResolution" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="ExportResolution" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=1715398152]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/ExportResolution"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/ExportResolution" unique_id=360354375]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("8_t0cwl")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="ResolutionX" type="SpinBox" parent="MainUI/LeftPanel/ExportResolution"]
+[node name="ResolutionX" type="SpinBox" parent="MainUI/LeftPanel/ExportResolution" unique_id=876591433]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
@@ -406,7 +406,7 @@ value = 100.0
 allow_greater = true
 suffix = "px"
 
-[node name="ResolutionY" type="SpinBox" parent="MainUI/LeftPanel/ExportResolution"]
+[node name="ResolutionY" type="SpinBox" parent="MainUI/LeftPanel/ExportResolution" unique_id=2035779649]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
@@ -416,11 +416,11 @@ value = 100.0
 allow_greater = true
 suffix = "px"
 
-[node name="Label2" type="Label" parent="MainUI/LeftPanel/ExportResolution"]
+[node name="Label2" type="Label" parent="MainUI/LeftPanel/ExportResolution" unique_id=134575333]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PrefixText" type="LineEdit" parent="MainUI/LeftPanel/ExportResolution"]
+[node name="PrefixText" type="LineEdit" parent="MainUI/LeftPanel/ExportResolution" unique_id=1764321481]
 unique_name_in_owner = true
 clip_contents = true
 custom_minimum_size = Vector2(245, 0)
@@ -430,14 +430,14 @@ tooltip_text = "Add naming prefix
 e.g. 'run1' will result in run1_0001"
 placeholder_text = "prefix text"
 
-[node name="Label3" type="Label" parent="MainUI/LeftPanel/ExportResolution"]
+[node name="Label3" type="Label" parent="MainUI/LeftPanel/ExportResolution" unique_id=896838757]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ExportOptions4" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="ExportOptions4" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=1816505892]
 layout_mode = 2
 
-[node name="SelectFolderButton" type="Button" parent="MainUI/LeftPanel/ExportOptions4"]
+[node name="SelectFolderButton" type="Button" parent="MainUI/LeftPanel/ExportOptions4" unique_id=326964731]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(188, 36)
 layout_mode = 2
@@ -445,7 +445,7 @@ text = "EXPORT DIR"
 icon = ExtResource("4_sen5r")
 expand_icon = true
 
-[node name="ExportDirPath" type="Label" parent="MainUI/LeftPanel/ExportOptions4"]
+[node name="ExportDirPath" type="Label" parent="MainUI/LeftPanel/ExportOptions4" unique_id=557289875]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -453,10 +453,10 @@ theme_override_colors/font_color = Color(0.473976, 0.473976, 0.473976, 1)
 text = "://path-to-export-dir"
 clip_text = true
 
-[node name="Label4" type="Label" parent="MainUI/LeftPanel/ExportOptions4"]
+[node name="Label4" type="Label" parent="MainUI/LeftPanel/ExportOptions4" unique_id=153435805]
 layout_mode = 2
 
-[node name="ExportButton" type="Button" parent="MainUI/LeftPanel/ExportOptions4"]
+[node name="ExportButton" type="Button" parent="MainUI/LeftPanel/ExportOptions4" unique_id=1896834076]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
@@ -465,45 +465,46 @@ text = "EXPORT"
 icon = ExtResource("9_l23g4")
 expand_icon = true
 
-[node name="Label3" type="Label" parent="MainUI/LeftPanel/ExportOptions4"]
+[node name="Label3" type="Label" parent="MainUI/LeftPanel/ExportOptions4" unique_id=1372571676]
 custom_minimum_size = Vector2(3, 0)
 layout_mode = 2
 
-[node name="HBoxContainer10" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="HBoxContainer10" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=822946265]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer10"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer10" unique_id=1083337694]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("10_x1hdl")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="ModelRotationSlider" type="HSlider" parent="MainUI/LeftPanel/HBoxContainer10"]
+[node name="ModelRotationSlider" type="HSlider" parent="MainUI/LeftPanel/HBoxContainer10" unique_id=1402186011]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 360.0
 
-[node name="ModelRotationSpinBox" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer10"]
+[node name="ModelRotationSpinBox" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer10" unique_id=1351070892]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 360.0
 alignment = 2
 
-[node name="Label2" type="Label" parent="MainUI/LeftPanel/HBoxContainer10"]
+[node name="Label2" type="Label" parent="MainUI/LeftPanel/HBoxContainer10" unique_id=1827558133]
 layout_mode = 2
 text = " Step:"
 uppercase = true
 
-[node name="Step360" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer10"]
+[node name="Step360" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer10" unique_id=1026806787]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 360.0
+step = 0.5
 alignment = 2
 
-[node name="Export360" type="Button" parent="MainUI/LeftPanel/HBoxContainer10"]
+[node name="Export360" type="Button" parent="MainUI/LeftPanel/HBoxContainer10" unique_id=1752145479]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
@@ -512,7 +513,7 @@ text = "EXPORT"
 icon = ExtResource("9_l23g4")
 expand_icon = true
 
-[node name="Export360Abort" type="Button" parent="MainUI/LeftPanel/HBoxContainer10"]
+[node name="Export360Abort" type="Button" parent="MainUI/LeftPanel/HBoxContainer10" unique_id=1175030682]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
@@ -520,46 +521,52 @@ tooltip_text = "Terminate Export"
 icon = ExtResource("26_owbk2")
 expand_icon = true
 
-[node name="ProgressBar" type="ProgressBar" parent="MainUI/LeftPanel"]
+[node name="IgnoreAnimation" type="CheckBox" parent="MainUI/LeftPanel" unique_id=205192751]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "ignore animation when exporting 360 frames"
+text = "STATIC EXPORT (skip animation)"
+
+[node name="ProgressBar" type="ProgressBar" parent="MainUI/LeftPanel" unique_id=1227814647]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=125006909]
 layout_mode = 2
 
-[node name="PreviewImageCheckBox" type="CheckButton" parent="MainUI/LeftPanel/HBoxContainer5"]
+[node name="PreviewImageCheckBox" type="CheckButton" parent="MainUI/LeftPanel/HBoxContainer5" unique_id=1338455116]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Export preview (Hi-res)"
 text = " PREVIEW"
 alignment = 2
 
-[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer5"]
+[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer5" unique_id=1571538296]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BgColorCheckBox" type="CheckButton" parent="MainUI/LeftPanel/HBoxContainer5"]
+[node name="BgColorCheckBox" type="CheckButton" parent="MainUI/LeftPanel/HBoxContainer5" unique_id=474233235]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Set Background Color"
 text = "BG"
 
-[node name="BgColorPicker" type="ColorPickerButton" parent="MainUI/LeftPanel/HBoxContainer5"]
+[node name="BgColorPicker" type="ColorPickerButton" parent="MainUI/LeftPanel/HBoxContainer5" unique_id=1653801516]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
 color = Color(1, 1, 1, 1)
 
-[node name="Label6" type="Label" parent="MainUI/LeftPanel/HBoxContainer5"]
+[node name="Label6" type="Label" parent="MainUI/LeftPanel/HBoxContainer5" unique_id=1145664880]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label4" type="Label" parent="MainUI/LeftPanel/HBoxContainer5"]
+[node name="Label4" type="Label" parent="MainUI/LeftPanel/HBoxContainer5" unique_id=1386654721]
 layout_mode = 2
 text = "MODE:"
 
-[node name="ViewModeDropDown" type="OptionButton" parent="MainUI/LeftPanel/HBoxContainer5"]
+[node name="ViewModeDropDown" type="OptionButton" parent="MainUI/LeftPanel/HBoxContainer5" unique_id=1651917544]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
@@ -568,13 +575,13 @@ theme = ExtResource("2_l23g4")
 clip_text = true
 fit_to_longest_item = false
 
-[node name="HSeparator3" type="HSeparator" parent="MainUI/LeftPanel"]
+[node name="HSeparator3" type="HSeparator" parent="MainUI/LeftPanel" unique_id=1925005632]
 layout_mode = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=1148029296]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainUI/LeftPanel/HBoxContainer3"]
+[node name="Label" type="Label" parent="MainUI/LeftPanel/HBoxContainer3" unique_id=1155457283]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -583,27 +590,27 @@ text = "ADJUSTMENTS"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PositionAdjust" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="PositionAdjust" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=10302643]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label7" type="Label" parent="MainUI/LeftPanel/PositionAdjust"]
+[node name="Label7" type="Label" parent="MainUI/LeftPanel/PositionAdjust" unique_id=1204656240]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/PositionAdjust"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/PositionAdjust" unique_id=2014706823]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("8_6vt7t")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Label2" type="Label" parent="MainUI/LeftPanel/PositionAdjust"]
+[node name="Label2" type="Label" parent="MainUI/LeftPanel/PositionAdjust" unique_id=297925598]
 layout_mode = 2
 text = "X:"
 
-[node name="XPosSpin" type="SpinBox" parent="MainUI/LeftPanel/PositionAdjust"]
+[node name="XPosSpin" type="SpinBox" parent="MainUI/LeftPanel/PositionAdjust" unique_id=306372544]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -613,11 +620,11 @@ allow_greater = true
 allow_lesser = true
 alignment = 2
 
-[node name="Label3" type="Label" parent="MainUI/LeftPanel/PositionAdjust"]
+[node name="Label3" type="Label" parent="MainUI/LeftPanel/PositionAdjust" unique_id=1234962193]
 layout_mode = 2
 text = "Y:"
 
-[node name="YPosSpin" type="SpinBox" parent="MainUI/LeftPanel/PositionAdjust"]
+[node name="YPosSpin" type="SpinBox" parent="MainUI/LeftPanel/PositionAdjust" unique_id=1047416113]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -627,11 +634,11 @@ allow_greater = true
 allow_lesser = true
 alignment = 2
 
-[node name="Label4" type="Label" parent="MainUI/LeftPanel/PositionAdjust"]
+[node name="Label4" type="Label" parent="MainUI/LeftPanel/PositionAdjust" unique_id=401992088]
 layout_mode = 2
 text = "Z:"
 
-[node name="ZPosSpin" type="SpinBox" parent="MainUI/LeftPanel/PositionAdjust"]
+[node name="ZPosSpin" type="SpinBox" parent="MainUI/LeftPanel/PositionAdjust" unique_id=893178124]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -641,12 +648,12 @@ allow_greater = true
 allow_lesser = true
 alignment = 2
 
-[node name="Label8" type="Label" parent="MainUI/LeftPanel/PositionAdjust"]
+[node name="Label8" type="Label" parent="MainUI/LeftPanel/PositionAdjust" unique_id=890024033]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 2
 
-[node name="PosResetButton" type="Button" parent="MainUI/LeftPanel/PositionAdjust"]
+[node name="PosResetButton" type="Button" parent="MainUI/LeftPanel/PositionAdjust" unique_id=1506812170]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -654,27 +661,27 @@ tooltip_text = "Reset position adjustments"
 icon = ExtResource("9_ilx0h")
 expand_icon = true
 
-[node name="RotationAdjust" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="RotationAdjust" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=1129019887]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label5" type="Label" parent="MainUI/LeftPanel/RotationAdjust"]
+[node name="Label5" type="Label" parent="MainUI/LeftPanel/RotationAdjust" unique_id=842742131]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/RotationAdjust"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/RotationAdjust" unique_id=1241142482]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("10_x1hdl")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Label2" type="Label" parent="MainUI/LeftPanel/RotationAdjust"]
+[node name="Label2" type="Label" parent="MainUI/LeftPanel/RotationAdjust" unique_id=1304126890]
 layout_mode = 2
 text = "X:"
 
-[node name="XRotSpin" type="SpinBox" parent="MainUI/LeftPanel/RotationAdjust"]
+[node name="XRotSpin" type="SpinBox" parent="MainUI/LeftPanel/RotationAdjust" unique_id=1495902847]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -684,11 +691,11 @@ allow_greater = true
 allow_lesser = true
 alignment = 2
 
-[node name="Label3" type="Label" parent="MainUI/LeftPanel/RotationAdjust"]
+[node name="Label3" type="Label" parent="MainUI/LeftPanel/RotationAdjust" unique_id=1385020978]
 layout_mode = 2
 text = "Y:"
 
-[node name="YRotSpin" type="SpinBox" parent="MainUI/LeftPanel/RotationAdjust"]
+[node name="YRotSpin" type="SpinBox" parent="MainUI/LeftPanel/RotationAdjust" unique_id=1450773594]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -698,11 +705,11 @@ allow_greater = true
 allow_lesser = true
 alignment = 2
 
-[node name="Label4" type="Label" parent="MainUI/LeftPanel/RotationAdjust"]
+[node name="Label4" type="Label" parent="MainUI/LeftPanel/RotationAdjust" unique_id=1029113176]
 layout_mode = 2
 text = "Z:"
 
-[node name="ZRotSpin" type="SpinBox" parent="MainUI/LeftPanel/RotationAdjust"]
+[node name="ZRotSpin" type="SpinBox" parent="MainUI/LeftPanel/RotationAdjust" unique_id=654247393]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -712,12 +719,12 @@ allow_greater = true
 allow_lesser = true
 alignment = 2
 
-[node name="Label6" type="Label" parent="MainUI/LeftPanel/RotationAdjust"]
+[node name="Label6" type="Label" parent="MainUI/LeftPanel/RotationAdjust" unique_id=945863472]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 2
 
-[node name="RotResetButton" type="Button" parent="MainUI/LeftPanel/RotationAdjust"]
+[node name="RotResetButton" type="Button" parent="MainUI/LeftPanel/RotationAdjust" unique_id=1517555935]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -725,20 +732,20 @@ tooltip_text = "Reset rotation adjustments"
 icon = ExtResource("9_ilx0h")
 expand_icon = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=723031166]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/LeftPanel/HBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/LeftPanel/HBoxContainer2" unique_id=1229982137]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.2
 
-[node name="Label6" type="Label" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer"]
+[node name="Label6" type="Label" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer" unique_id=1945652531]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 2
 
-[node name="Button_Up" type="Button" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer"]
+[node name="Button_Up" type="Button" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer" unique_id=1356834850]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -746,7 +753,7 @@ icon = ExtResource("7_klpv1")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Button_Down" type="Button" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer"]
+[node name="Button_Down" type="Button" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer" unique_id=1491568384]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -754,7 +761,7 @@ icon = ExtResource("8_75uvr")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Button_Left" type="Button" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer"]
+[node name="Button_Left" type="Button" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer" unique_id=1753731253]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -762,7 +769,7 @@ icon = ExtResource("9_lbuph")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Button_Right" type="Button" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer"]
+[node name="Button_Right" type="Button" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer" unique_id=1069474168]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -770,23 +777,23 @@ icon = ExtResource("10_3lf5q")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer"]
+[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer" unique_id=1597291837]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/LeftPanel/HBoxContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/LeftPanel/HBoxContainer2" unique_id=537119475]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer2" unique_id=1441131716]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("11_5xf31")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="CameraZoomSpin" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer2"]
+[node name="CameraZoomSpin" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer2" unique_id=757832181]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -796,13 +803,13 @@ value = 4.0
 allow_greater = true
 alignment = 2
 
-[node name="Label7" type="Label" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer2"]
+[node name="Label7" type="Label" parent="MainUI/LeftPanel/HBoxContainer2/HBoxContainer2" unique_id=194876342]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.9
 horizontal_alignment = 2
 
-[node name="ZoomResetButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer2"]
+[node name="ZoomResetButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer2" unique_id=760602473]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -810,10 +817,10 @@ tooltip_text = "Reset scale adjustment"
 icon = ExtResource("9_ilx0h")
 expand_icon = true
 
-[node name="HSeparator5" type="HSeparator" parent="MainUI/LeftPanel"]
+[node name="HSeparator5" type="HSeparator" parent="MainUI/LeftPanel" unique_id=1546935422]
 layout_mode = 2
 
-[node name="Lighting" type="Label" parent="MainUI/LeftPanel"]
+[node name="Lighting" type="Label" parent="MainUI/LeftPanel" unique_id=1689381918]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_l23g4")
@@ -822,49 +829,49 @@ horizontal_alignment = 1
 vertical_alignment = 2
 script = ExtResource("18_ilx0h")
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=1610594936]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainUI/LeftPanel/HBoxContainer4"]
+[node name="Label" type="Label" parent="MainUI/LeftPanel/HBoxContainer4" unique_id=210043285]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="KeyLightCheckButton" type="CheckButton" parent="MainUI/LeftPanel/HBoxContainer4"]
+[node name="KeyLightCheckButton" type="CheckButton" parent="MainUI/LeftPanel/HBoxContainer4" unique_id=2040658406]
 unique_name_in_owner = true
 layout_mode = 2
 text = " KEY LIGHT"
 
-[node name="Label2" type="Label" parent="MainUI/LeftPanel/HBoxContainer4"]
+[node name="Label2" type="Label" parent="MainUI/LeftPanel/HBoxContainer4" unique_id=1126893248]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="KeyLightSpinBox" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer4"]
+[node name="KeyLightSpinBox" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer4" unique_id=493787013]
 unique_name_in_owner = true
 layout_mode = 2
 allow_greater = true
 alignment = 2
 
-[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer4"]
+[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer4" unique_id=1454922342]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="KeyLightColorPickerButton" type="ColorPickerButton" parent="MainUI/LeftPanel/HBoxContainer4"]
+[node name="KeyLightColorPickerButton" type="ColorPickerButton" parent="MainUI/LeftPanel/HBoxContainer4" unique_id=267432888]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="MainUI/LeftPanel/HBoxContainer4"]
+[node name="Label4" type="Label" parent="MainUI/LeftPanel/HBoxContainer4" unique_id=1098141317]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer4"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer4" unique_id=400725130]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("10_x1hdl")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="KeyLightRotSpin" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer4"]
+[node name="KeyLightRotSpin" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer4" unique_id=1994482233]
 unique_name_in_owner = true
 layout_mode = 2
 step = 0.1
@@ -872,11 +879,11 @@ allow_greater = true
 allow_lesser = true
 alignment = 2
 
-[node name="Label3" type="Label" parent="MainUI/LeftPanel/HBoxContainer4"]
+[node name="Label3" type="Label" parent="MainUI/LeftPanel/HBoxContainer4" unique_id=1033634489]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="KeyLightResetButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer4"]
+[node name="KeyLightResetButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer4" unique_id=2098185984]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -884,49 +891,49 @@ tooltip_text = "Reset Key light"
 icon = ExtResource("9_ilx0h")
 expand_icon = true
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=2081111216]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainUI/LeftPanel/HBoxContainer6"]
+[node name="Label" type="Label" parent="MainUI/LeftPanel/HBoxContainer6" unique_id=1329463218]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FillLightCheckButton" type="CheckButton" parent="MainUI/LeftPanel/HBoxContainer6"]
+[node name="FillLightCheckButton" type="CheckButton" parent="MainUI/LeftPanel/HBoxContainer6" unique_id=1807385946]
 unique_name_in_owner = true
 layout_mode = 2
 text = "FILL LIGHT"
 
-[node name="Label2" type="Label" parent="MainUI/LeftPanel/HBoxContainer6"]
+[node name="Label2" type="Label" parent="MainUI/LeftPanel/HBoxContainer6" unique_id=1633791955]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FillLightSpinBox" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer6"]
+[node name="FillLightSpinBox" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer6" unique_id=1636664051]
 unique_name_in_owner = true
 layout_mode = 2
 allow_greater = true
 alignment = 2
 
-[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer6"]
+[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer6" unique_id=1316845643]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FillLightColorPickerButton" type="ColorPickerButton" parent="MainUI/LeftPanel/HBoxContainer6"]
+[node name="FillLightColorPickerButton" type="ColorPickerButton" parent="MainUI/LeftPanel/HBoxContainer6" unique_id=717299036]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="MainUI/LeftPanel/HBoxContainer6"]
+[node name="Label4" type="Label" parent="MainUI/LeftPanel/HBoxContainer6" unique_id=2038022689]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer6"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer6" unique_id=1515303866]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("10_x1hdl")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="FillLightRotSpin" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer6"]
+[node name="FillLightRotSpin" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer6" unique_id=1506896223]
 unique_name_in_owner = true
 layout_mode = 2
 step = 0.1
@@ -934,11 +941,11 @@ allow_greater = true
 allow_lesser = true
 alignment = 2
 
-[node name="Label3" type="Label" parent="MainUI/LeftPanel/HBoxContainer6"]
+[node name="Label3" type="Label" parent="MainUI/LeftPanel/HBoxContainer6" unique_id=789800082]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FillLightResetButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer6"]
+[node name="FillLightResetButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer6" unique_id=831731482]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -946,49 +953,49 @@ tooltip_text = "Reset Fill light"
 icon = ExtResource("9_ilx0h")
 expand_icon = true
 
-[node name="HBoxContainer8" type="HBoxContainer" parent="MainUI/LeftPanel"]
+[node name="HBoxContainer8" type="HBoxContainer" parent="MainUI/LeftPanel" unique_id=1928341781]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainUI/LeftPanel/HBoxContainer8"]
+[node name="Label" type="Label" parent="MainUI/LeftPanel/HBoxContainer8" unique_id=1561682277]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RimLightCheckButton" type="CheckButton" parent="MainUI/LeftPanel/HBoxContainer8"]
+[node name="RimLightCheckButton" type="CheckButton" parent="MainUI/LeftPanel/HBoxContainer8" unique_id=2033876772]
 unique_name_in_owner = true
 layout_mode = 2
 text = " RIM LIGHT"
 
-[node name="Label2" type="Label" parent="MainUI/LeftPanel/HBoxContainer8"]
+[node name="Label2" type="Label" parent="MainUI/LeftPanel/HBoxContainer8" unique_id=1962652374]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RimLightSpinBox" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer8"]
+[node name="RimLightSpinBox" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer8" unique_id=839566416]
 unique_name_in_owner = true
 layout_mode = 2
 allow_greater = true
 alignment = 2
 
-[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer8"]
+[node name="Label5" type="Label" parent="MainUI/LeftPanel/HBoxContainer8" unique_id=751761327]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RimLightColorPickerButton" type="ColorPickerButton" parent="MainUI/LeftPanel/HBoxContainer8"]
+[node name="RimLightColorPickerButton" type="ColorPickerButton" parent="MainUI/LeftPanel/HBoxContainer8" unique_id=727245304]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="MainUI/LeftPanel/HBoxContainer8"]
+[node name="Label4" type="Label" parent="MainUI/LeftPanel/HBoxContainer8" unique_id=91943181]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer8"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/LeftPanel/HBoxContainer8" unique_id=406520870]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("10_x1hdl")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="RimLightRotSpin" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer8"]
+[node name="RimLightRotSpin" type="SpinBox" parent="MainUI/LeftPanel/HBoxContainer8" unique_id=1197782682]
 unique_name_in_owner = true
 layout_mode = 2
 step = 0.1
@@ -996,11 +1003,11 @@ allow_greater = true
 allow_lesser = true
 alignment = 2
 
-[node name="Label3" type="Label" parent="MainUI/LeftPanel/HBoxContainer8"]
+[node name="Label3" type="Label" parent="MainUI/LeftPanel/HBoxContainer8" unique_id=1131091131]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RimLightResetButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer8"]
+[node name="RimLightResetButton" type="Button" parent="MainUI/LeftPanel/HBoxContainer8" unique_id=1983878932]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -1008,36 +1015,36 @@ tooltip_text = "Reset Rim light"
 icon = ExtResource("9_ilx0h")
 expand_icon = true
 
-[node name="Renderer" type="VBoxContainer" parent="MainUI"]
+[node name="Renderer" type="VBoxContainer" parent="MainUI" unique_id=787422494]
 custom_minimum_size = Vector2(49.32, 0)
 layout_mode = 2
 
-[node name="RendererContainer" type="BoxContainer" parent="MainUI/Renderer"]
+[node name="RendererContainer" type="BoxContainer" parent="MainUI/Renderer" unique_id=1511516689]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(800, 800)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="LeftRenderer" type="Control" parent="MainUI/Renderer/RendererContainer"]
+[node name="LeftRenderer" type="Control" parent="MainUI/Renderer/RendererContainer" unique_id=1966155117]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
 
-[node name="Renderer" type="PanelContainer" parent="MainUI/Renderer/RendererContainer"]
+[node name="Renderer" type="PanelContainer" parent="MainUI/Renderer/RendererContainer" unique_id=1217404734]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_tkbio")
 
-[node name="BgColorRect" type="ColorRect" parent="MainUI/Renderer/RendererContainer/Renderer"]
+[node name="BgColorRect" type="ColorRect" parent="MainUI/Renderer/RendererContainer/Renderer" unique_id=282929500]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="PixelCanvas" type="TextureRect" parent="MainUI/Renderer/RendererContainer/Renderer"]
+[node name="PixelCanvas" type="TextureRect" parent="MainUI/Renderer/RendererContainer/Renderer" unique_id=433156420]
 unique_name_in_owner = true
 texture_filter = 1
 material = ExtResource("3_v52r1")
@@ -1047,26 +1054,26 @@ texture = SubResource("ViewportTexture_tkbio")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="RightRenderer" type="Control" parent="MainUI/Renderer/RendererContainer"]
+[node name="RightRenderer" type="Control" parent="MainUI/Renderer/RendererContainer" unique_id=1922337001]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/Renderer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainUI/Renderer" unique_id=324267169]
 layout_mode = 2
 
-[node name="Gizmo" type="HBoxContainer" parent="MainUI/Renderer"]
+[node name="Gizmo" type="HBoxContainer" parent="MainUI/Renderer" unique_id=743391276]
 layout_mode = 2
 theme_override_constants/separation = 20
 script = ExtResource("19_ilx0h")
 
-[node name="Label7" type="Label" parent="MainUI/Renderer/Gizmo"]
+[node name="Label7" type="Label" parent="MainUI/Renderer/Gizmo" unique_id=1680253392]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 2
 
-[node name="Button_Axis" type="Button" parent="MainUI/Renderer/Gizmo"]
+[node name="Button_Axis" type="Button" parent="MainUI/Renderer/Gizmo" unique_id=690464586]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
@@ -1074,7 +1081,7 @@ text = "AXIS"
 icon = ExtResource("14_ilx0h")
 expand_icon = true
 
-[node name="Button_Origin" type="Button" parent="MainUI/Renderer/Gizmo"]
+[node name="Button_Origin" type="Button" parent="MainUI/Renderer/Gizmo" unique_id=731161529]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
@@ -1082,7 +1089,7 @@ text = "ORIGIN"
 icon = ExtResource("15_x1hdl")
 expand_icon = true
 
-[node name="Button_Floor" type="Button" parent="MainUI/Renderer/Gizmo"]
+[node name="Button_Floor" type="Button" parent="MainUI/Renderer/Gizmo" unique_id=123894069]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(125, 40)
 layout_mode = 2
@@ -1090,21 +1097,21 @@ text = "FLOOR"
 icon = ExtResource("16_5xf31")
 expand_icon = true
 
-[node name="FloorColorPicker" type="ColorPickerButton" parent="MainUI/Renderer/Gizmo"]
+[node name="FloorColorPicker" type="ColorPickerButton" parent="MainUI/Renderer/Gizmo" unique_id=1920401919]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 color = Color(1, 1, 1, 1)
 
-[node name="Label8" type="Label" parent="MainUI/Renderer/Gizmo"]
+[node name="Label8" type="Label" parent="MainUI/Renderer/Gizmo" unique_id=1729142434]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 2
 
-[node name="HSeparator6" type="HSeparator" parent="MainUI/Renderer"]
+[node name="HSeparator6" type="HSeparator" parent="MainUI/Renderer" unique_id=801910866]
 layout_mode = 2
 
-[node name="CanvasSizeLabel" type="Label" parent="MainUI/Renderer"]
+[node name="CanvasSizeLabel" type="Label" parent="MainUI/Renderer" unique_id=131366462]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.479183, 0.479183, 0.479183, 1)
@@ -1113,20 +1120,20 @@ text = "Canvas size: 512 px"
 horizontal_alignment = 2
 clip_text = true
 
-[node name="HSeparator7" type="HSeparator" parent="MainUI/Renderer"]
+[node name="HSeparator7" type="HSeparator" parent="MainUI/Renderer" unique_id=344721632]
 layout_mode = 2
 
-[node name="ConsoleContainer" type="HBoxContainer" parent="MainUI/Renderer"]
+[node name="ConsoleContainer" type="HBoxContainer" parent="MainUI/Renderer" unique_id=1773151174]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("26_g6ha7")
 
-[node name="Control2" type="Control" parent="MainUI/Renderer/ConsoleContainer"]
+[node name="Control2" type="Control" parent="MainUI/Renderer/ConsoleContainer" unique_id=548629955]
 layout_mode = 2
 
-[node name="Console" type="TextEdit" parent="MainUI/Renderer/ConsoleContainer"]
+[node name="Console" type="TextEdit" parent="MainUI/Renderer/ConsoleContainer" unique_id=1003837142]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1138,31 +1145,31 @@ shortcut_keys_enabled = false
 selecting_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
-virtual_keyboard_enabled = false
 middle_mouse_paste_enabled = false
 empty_selection_clipboard_enabled = false
 wrap_mode = 1
 indent_wrapped_lines = true
+virtual_keyboard_enabled = false
 scroll_smooth = true
 
-[node name="ExpandConsole" type="Button" parent="MainUI/Renderer/ConsoleContainer"]
+[node name="ExpandConsole" type="Button" parent="MainUI/Renderer/ConsoleContainer" unique_id=1701258051]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
 text = "LOG"
 
-[node name="Control" type="Control" parent="MainUI/Renderer/ConsoleContainer"]
+[node name="Control" type="Control" parent="MainUI/Renderer/ConsoleContainer" unique_id=951952556]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="MainUI/Renderer"]
+[node name="Control" type="Control" parent="MainUI/Renderer" unique_id=19398999]
 layout_mode = 2
 
-[node name="UI_Controls" type="VBoxContainer" parent="MainUI"]
+[node name="UI_Controls" type="VBoxContainer" parent="MainUI" unique_id=726743944]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls" unique_id=1998541486]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1171,42 +1178,42 @@ text = "PRESET CONFIG"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PresetSelector" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PresetSelector" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=109357634]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="PresetOptionButton" type="OptionButton" parent="MainUI/UI_Controls/PresetSelector"]
+[node name="PresetOptionButton" type="OptionButton" parent="MainUI/UI_Controls/PresetSelector" unique_id=1418577969]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 clip_text = true
 fit_to_longest_item = false
 
-[node name="SearchTextLineEdit" type="LineEdit" parent="MainUI/UI_Controls/PresetSelector"]
+[node name="SearchTextLineEdit" type="LineEdit" parent="MainUI/UI_Controls/PresetSelector" unique_id=1885702440]
 unique_name_in_owner = true
 clip_contents = true
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 placeholder_text = "search "
 
-[node name="SavePresetButton" type="Button" parent="MainUI/UI_Controls/PresetSelector"]
+[node name="SavePresetButton" type="Button" parent="MainUI/UI_Controls/PresetSelector" unique_id=706264419]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 icon = ExtResource("22_6vt7t")
 expand_icon = true
 
-[node name="DeletePresetButton" type="Button" parent="MainUI/UI_Controls/PresetSelector"]
+[node name="DeletePresetButton" type="Button" parent="MainUI/UI_Controls/PresetSelector" unique_id=617220631]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 icon = ExtResource("23_ilx0h")
 expand_icon = true
 
-[node name="HSeparator7" type="HSeparator" parent="MainUI/UI_Controls"]
+[node name="HSeparator7" type="HSeparator" parent="MainUI/UI_Controls" unique_id=1386809214]
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="MainUI/UI_Controls"]
+[node name="Label4" type="Label" parent="MainUI/UI_Controls" unique_id=1192677606]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1215,48 +1222,48 @@ text = "COLOR ADJUSTMENTS"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Panel" type="Panel" parent="MainUI/UI_Controls"]
+[node name="Panel" type="Panel" parent="MainUI/UI_Controls" unique_id=1541733790]
 layout_mode = 2
 
-[node name="PixelAdjust1" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust1" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=2012356034]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust1"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust1" unique_id=1343322438]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Color steps:"
 horizontal_alignment = 2
 
-[node name="ColorStepsSpin" type="SpinBox" parent="MainUI/UI_Controls/PixelAdjust1"]
+[node name="ColorStepsSpin" type="SpinBox" parent="MainUI/UI_Controls/PixelAdjust1" unique_id=1955427812]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 value = 8.0
 allow_greater = true
 
-[node name="Label2" type="Label" parent="MainUI/UI_Controls/PixelAdjust1"]
+[node name="Label2" type="Label" parent="MainUI/UI_Controls/PixelAdjust1" unique_id=802162623]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ResetMaterialButton" type="Button" parent="MainUI/UI_Controls/PixelAdjust1"]
+[node name="ResetMaterialButton" type="Button" parent="MainUI/UI_Controls/PixelAdjust1" unique_id=1009585978]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 icon = ExtResource("9_ilx0h")
 expand_icon = true
 
-[node name="PixelAdjust2" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust2" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=1243533366]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust2"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust2" unique_id=1107594618]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Edge strength:"
 horizontal_alignment = 2
 
-[node name="EdgeStrengthSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust2"]
+[node name="EdgeStrengthSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust2" unique_id=1865768067]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1265,17 +1272,17 @@ size_flags_vertical = 4
 max_value = 5.0
 step = 0.5
 
-[node name="PixelAdjust3" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust3" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=834541292]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust3"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust3" unique_id=715454464]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Sharpness:"
 horizontal_alignment = 2
 
-[node name="SharpnessSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust3"]
+[node name="SharpnessSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust3" unique_id=637022692]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1284,17 +1291,17 @@ size_flags_vertical = 4
 max_value = 5.0
 step = 0.1
 
-[node name="PixelAdjust4" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust4" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=446793838]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust4"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust4" unique_id=1001085300]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Hue shift:"
 horizontal_alignment = 2
 
-[node name="HueShiftSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust4"]
+[node name="HueShiftSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust4" unique_id=1820742811]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1303,17 +1310,17 @@ size_flags_vertical = 4
 min_value = -180.0
 max_value = 180.0
 
-[node name="PixelAdjust5" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust5" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=2105336645]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust5"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust5" unique_id=89594112]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Saturation:"
 horizontal_alignment = 2
 
-[node name="SaturationSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust5"]
+[node name="SaturationSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust5" unique_id=2101468934]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1323,17 +1330,17 @@ max_value = 2.0
 step = 0.1
 value = 1.0
 
-[node name="PixelAdjust6" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust6" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=1513677935]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust6"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust6" unique_id=2076646242]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Value:"
 horizontal_alignment = 2
 
-[node name="ValueSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust6"]
+[node name="ValueSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust6" unique_id=310416635]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1343,17 +1350,17 @@ max_value = 2.0
 step = 0.1
 value = 1.0
 
-[node name="PixelAdjust7" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust7" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=1059127500]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust7"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust7" unique_id=1266811248]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Contrast:"
 horizontal_alignment = 2
 
-[node name="ContrastSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust7"]
+[node name="ContrastSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust7" unique_id=1497448653]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1363,17 +1370,17 @@ max_value = 5.0
 step = 0.1
 value = 1.0
 
-[node name="PixelAdjust8" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust8" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=968364027]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust8"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust8" unique_id=131318079]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Gamma:"
 horizontal_alignment = 2
 
-[node name="GammaSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust8"]
+[node name="GammaSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust8" unique_id=1568227293]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1383,17 +1390,17 @@ max_value = 5.0
 step = 0.1
 value = 1.0
 
-[node name="PixelAdjust9" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust9" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=955075151]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust9"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust9" unique_id=2075175957]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Brightness:"
 horizontal_alignment = 2
 
-[node name="BrightnessSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust9"]
+[node name="BrightnessSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust9" unique_id=1697635751]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1403,29 +1410,29 @@ min_value = -1.0
 max_value = 1.0
 step = 0.1
 
-[node name="PixelAdjust10" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust10" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=1437928719]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust10"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust10" unique_id=1146216988]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Outline:"
 horizontal_alignment = 2
 
-[node name="OutlineSpinBox" type="SpinBox" parent="MainUI/UI_Controls/PixelAdjust10"]
+[node name="OutlineSpinBox" type="SpinBox" parent="MainUI/UI_Controls/PixelAdjust10" unique_id=625514971]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="OutlineColorPicker" type="ColorPickerButton" parent="MainUI/UI_Controls/PixelAdjust10"]
+[node name="OutlineColorPicker" type="ColorPickerButton" parent="MainUI/UI_Controls/PixelAdjust10" unique_id=334530606]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
-[node name="HSeparator10" type="HSeparator" parent="MainUI/UI_Controls"]
+[node name="HSeparator10" type="HSeparator" parent="MainUI/UI_Controls" unique_id=14002978]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="MainUI/UI_Controls"]
+[node name="Label2" type="Label" parent="MainUI/UI_Controls" unique_id=629392901]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1434,17 +1441,17 @@ text = "DITHERING"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PixelAdjust12" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust12" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=1179711565]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust12"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust12" unique_id=6264442]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Amount:"
 horizontal_alignment = 2
 
-[node name="DitherAmountSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust12"]
+[node name="DitherAmountSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust12" unique_id=427370012]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1452,17 +1459,17 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 step = 0.01
 
-[node name="PixelAdjust13" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust13" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=1197122262]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust13"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust13" unique_id=764804959]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Blend:"
 horizontal_alignment = 2
 
-[node name="DitherBlendSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust13"]
+[node name="DitherBlendSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust13" unique_id=1735901933]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1470,17 +1477,17 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 step = 0.01
 
-[node name="PixelAdjust14" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust14" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=235379612]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust14"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust14" unique_id=1516316279]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Threshold:"
 horizontal_alignment = 2
 
-[node name="DitherThresholdSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust14"]
+[node name="DitherThresholdSlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust14" unique_id=503238593]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -1488,53 +1495,53 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 step = 0.01
 
-[node name="PixelAdjust15" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust15" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=1518473484]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust15"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust15" unique_id=962776009]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Sensitivity:"
 horizontal_alignment = 2
 
-[node name="DitherSensitivitySlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust15"]
+[node name="DitherSensitivitySlider" type="HSlider" parent="MainUI/UI_Controls/PixelAdjust15" unique_id=2046676295]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="PixelAdjust16" type="HBoxContainer" parent="MainUI/UI_Controls"]
+[node name="PixelAdjust16" type="HBoxContainer" parent="MainUI/UI_Controls" unique_id=1506134077]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust16"]
+[node name="Label" type="Label" parent="MainUI/UI_Controls/PixelAdjust16" unique_id=2018512413]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 text = "Dot size"
 horizontal_alignment = 2
 
-[node name="DitherDotSizeSpin" type="SpinBox" parent="MainUI/UI_Controls/PixelAdjust16"]
+[node name="DitherDotSizeSpin" type="SpinBox" parent="MainUI/UI_Controls/PixelAdjust16" unique_id=680637683]
 unique_name_in_owner = true
 layout_mode = 2
 step = 0.1
 value = 1.0
 
-[node name="DitherDotColor" type="ColorPickerButton" parent="MainUI/UI_Controls/PixelAdjust16"]
+[node name="DitherDotColor" type="ColorPickerButton" parent="MainUI/UI_Controls/PixelAdjust16" unique_id=584333495]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 
-[node name="HSeparator9" type="HSeparator" parent="MainUI/UI_Controls"]
+[node name="HSeparator9" type="HSeparator" parent="MainUI/UI_Controls" unique_id=1996293544]
 layout_mode = 2
 
-[node name="Panel2" type="Panel" parent="MainUI/UI_Controls"]
+[node name="Panel2" type="Panel" parent="MainUI/UI_Controls" unique_id=782555888]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_x1hdl")
 
-[node name="TextureRect" type="TextureRect" parent="MainUI/UI_Controls/Panel2"]
+[node name="TextureRect" type="TextureRect" parent="MainUI/UI_Controls/Panel2" unique_id=215217582]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -1547,11 +1554,11 @@ texture = SubResource("ViewportTexture_6vt7t")
 expand_mode = 1
 stretch_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainUI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainUI" unique_id=1289923782]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="MainUI/VBoxContainer"]
+[node name="Label" type="Label" parent="MainUI/VBoxContainer" unique_id=1315261816]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1560,86 +1567,86 @@ text = "COLORS"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="UsePaletteCheckButton" type="CheckButton" parent="MainUI/VBoxContainer"]
+[node name="UsePaletteCheckButton" type="CheckButton" parent="MainUI/VBoxContainer" unique_id=1997983320]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-theme_override_styles/pressed = SubResource("StyleBoxFlat_6vt7t")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ilx0h")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_6vt7t")
 text = " REMAP"
 alignment = 1
 
-[node name="ColorPresetOptionButton" type="OptionButton" parent="MainUI/VBoxContainer"]
+[node name="ColorPresetOptionButton" type="OptionButton" parent="MainUI/VBoxContainer" unique_id=434073383]
 unique_name_in_owner = true
 layout_mode = 2
 clip_text = true
 fit_to_longest_item = false
 
-[node name="UsePaletteColor1" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
+[node name="UsePaletteColor1" type="ColorPickerButton" parent="MainUI/VBoxContainer" unique_id=254549456]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UsePaletteColor2" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
+[node name="UsePaletteColor2" type="ColorPickerButton" parent="MainUI/VBoxContainer" unique_id=701719802]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UsePaletteColor3" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
+[node name="UsePaletteColor3" type="ColorPickerButton" parent="MainUI/VBoxContainer" unique_id=834484846]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UsePaletteColor4" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
+[node name="UsePaletteColor4" type="ColorPickerButton" parent="MainUI/VBoxContainer" unique_id=1372919175]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UsePaletteColor5" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
+[node name="UsePaletteColor5" type="ColorPickerButton" parent="MainUI/VBoxContainer" unique_id=484154384]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UsePaletteColor6" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
+[node name="UsePaletteColor6" type="ColorPickerButton" parent="MainUI/VBoxContainer" unique_id=1496429266]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UsePaletteColor7" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
+[node name="UsePaletteColor7" type="ColorPickerButton" parent="MainUI/VBoxContainer" unique_id=1186460902]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UsePaletteColor8" type="ColorPickerButton" parent="MainUI/VBoxContainer"]
+[node name="UsePaletteColor8" type="ColorPickerButton" parent="MainUI/VBoxContainer" unique_id=1602887461]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SampleColorsButton" type="Button" parent="MainUI/VBoxContainer"]
+[node name="SampleColorsButton" type="Button" parent="MainUI/VBoxContainer" unique_id=987336579]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "SAMPLE"
 
-[node name="Panel" type="Panel" parent="MainUI"]
+[node name="Panel" type="Panel" parent="MainUI" unique_id=1579560356]
 layout_mode = 2
 
-[node name="ModelsHandler" type="Node3D" parent="." node_paths=PackedStringArray("renderer")]
+[node name="ModelsHandler" type="Node3D" parent="." unique_id=1402669095 node_paths=PackedStringArray("renderer")]
 script = ExtResource("11_8egxh")
 renderer = NodePath("..")
 
-[node name="ModelsSpawner" type="Node3D" parent="ModelsHandler"]
+[node name="ModelsSpawner" type="Node3D" parent="ModelsHandler" unique_id=631205283]
 unique_name_in_owner = true
 script = ExtResource("22_t0cwl")
 
-[node name="TempModel" type="Node3D" parent="ModelsHandler/ModelsSpawner"]
+[node name="TempModel" type="Node3D" parent="ModelsHandler/ModelsSpawner" unique_id=1121041065]
 unique_name_in_owner = true
 
-[node name="Skeleton_Minion" parent="ModelsHandler/ModelsSpawner/TempModel" instance=ExtResource("27_wwtbg")]
+[node name="Skeleton_Minion" parent="ModelsHandler/ModelsSpawner/TempModel" unique_id=2735585 instance=ExtResource("27_wwtbg")]
 
-[node name="Skeleton3D" parent="ModelsHandler/ModelsSpawner/TempModel/Skeleton_Minion/Rig" index="0"]
+[node name="Skeleton3D" parent="ModelsHandler/ModelsSpawner/TempModel/Skeleton_Minion/Rig" parent_id_path=PackedInt32Array(2735585, 162773505) index="0" unique_id=1171304800]
 bones/1/position = Vector3(0, 0.392064, 0)
 bones/1/rotation = Quaternion(-1.11123e-10, 0.0431578, 2.57241e-09, 0.999068)
 bones/2/rotation = Quaternion(-6.93889e-18, 7.10543e-15, 4.93038e-32, 1)
@@ -1720,20 +1727,20 @@ bones/39/rotation = Quaternion(-0.707107, -7.27951e-08, -7.27951e-08, 0.707107)
 bones/40/position = Vector3(-0.510844, 0.788312, 0.0597369)
 bones/40/rotation = Quaternion(-0.758253, -1.52737e-07, 0.651961, -1.11759e-08)
 
-[node name="AnimationPlayer" parent="ModelsHandler/ModelsSpawner/TempModel/Skeleton_Minion" index="1"]
-autoplay = "Idle"
+[node name="AnimationPlayer" parent="ModelsHandler/ModelsSpawner/TempModel/Skeleton_Minion" index="1" unique_id=1474267153]
+autoplay = &"Idle"
 
-[node name="Grid" type="MeshInstance3D" parent="ModelsHandler/ModelsSpawner"]
+[node name="Grid" type="MeshInstance3D" parent="ModelsHandler/ModelsSpawner" unique_id=399307617]
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("PlaneMesh_6vt7t")
 skeleton = NodePath("../../../Gizmo")
 surface_material_override/0 = ExtResource("2_6vt7t")
 
-[node name="PixelMaterial" type="Node" parent="."]
+[node name="PixelMaterial" type="Node" parent="." unique_id=154325145]
 script = ExtResource("16_yc5xn")
 
-[node name="ViewMaterials" type="Node" parent="."]
+[node name="ViewMaterials" type="Node" parent="." unique_id=1759222773]
 script = ExtResource("34_owbk2")
 
 [editable path="ModelsHandler/ModelsSpawner/TempModel/Skeleton_Minion"]

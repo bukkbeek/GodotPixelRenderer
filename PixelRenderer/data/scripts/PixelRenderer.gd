@@ -10,6 +10,7 @@ signal single_export_finished
 @onready var texture_rect: TextureRect = %PixelCanvas
 
 @onready var fps_spin_box: SpinBox = %FpsSpin
+@onready var ignore_fps: CheckBox = %IgnoreAnimation
 
 @onready var left_renderer: Control = %LeftRenderer
 @onready var renderer: PanelContainer = %Renderer
@@ -270,7 +271,7 @@ func _start_export():
 		var loaded_model = models_spawner.get_loaded_model()
 		if loaded_model:
 			animation_player = _find_animation_player(loaded_model)
-			if animation_player:
+			if animation_player and not ignore_fps.button_pressed:
 				console._update("Found AnimationPlayer - animation will play during export")
 				# Store current state
 				was_playing_before_export = animation_player.is_playing()
@@ -282,7 +283,7 @@ func _start_export():
 					console._update("Started animation playback for export")
 				animation_player.speed_scale = 0.0
 			else:
-				console._update("No AnimationPlayer found - exporting static frames")
+				console._update("No AnimationPlayer found - exporting static frames (or ignoring export pressed)")
 		else:
 			console._update("No model loaded - exporting static frames")
 	
@@ -293,9 +294,12 @@ func _start_export():
 	
 	# Calculate total frames that will actually be exported (considering frame skipping)
 	var frames_to_export = []
-	for frame_num in range(start_frame, end_frame + 1):
-		if (frame_num - start_frame) % frame_skip == 0:
-			frames_to_export.append(frame_num)
+	if ignore_fps.button_pressed:
+		frames_to_export.append(0)
+	else:
+		for frame_num in range(start_frame, end_frame + 1):
+			if (frame_num - start_frame) % frame_skip == 0:
+				frames_to_export.append(frame_num)
 	
 	total_frames = frames_to_export.size()
 	
@@ -332,7 +336,7 @@ func _export_next_frame():
 	console._update("Processing frame " + str(frame_to_render) + " (" + str(export_frame_index + 1) + "/" + str(total_frames) + ")")
 	
 	# If we have an animation player, seek to the correct frame position
-	if animation_player and animation_player.current_animation != "":
+	if animation_player and animation_player.current_animation != "" and not ignore_fps.button_pressed:
 		# Animation timing always uses 30 FPS baseline
 		var target_time = float(frame_to_render) / 30.0
 		
@@ -348,10 +352,9 @@ func _export_next_frame():
 	# Wait for multiple frames to ensure proper rendering and animation update
 	#var s = renderer_container.size
 	#print_debug(s)
-	#await get_tree().process_frame
-	
-	#await get_tree().process_frame
-	#await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	# Capture the entire Renderer control node and its contents
 	var image = await _capture_control_node()
@@ -413,6 +416,12 @@ func _capture_control_node() -> Image:
 	
 	console._update("Capturing frame at size: " + str(size))
 	
+	# CRITICAL: Force main SubViewport to render a fresh frame before cloning
+	# This ensures the TextureRect has the latest image
+	var original_update_mode = sub_viewport.render_target_update_mode
+	sub_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+	await get_tree().process_frame
+	
 	# Create a SubViewport to render the control
 	capture_viewport = SubViewport.new()
 	capture_viewport.size = Vector2i(size)
@@ -421,6 +430,7 @@ func _capture_control_node() -> Image:
 	# Enable transparency in the SubViewport
 	capture_viewport.transparent_bg = true
 	if not is_instance_valid(capture_viewport):
+		sub_viewport.render_target_update_mode = original_update_mode
 		return null
 		
 	# Temporarily add the SubViewport to the scene
@@ -430,7 +440,10 @@ func _capture_control_node() -> Image:
 	renderer_clone = renderer.duplicate(DUPLICATE_USE_INSTANTIATION)
 	capture_viewport.add_child(renderer_clone)
 	
-	# Force the viewport to render
+	# Restore main viewport update mode
+	sub_viewport.render_target_update_mode = original_update_mode
+	
+	# Force the capture viewport to render
 	capture_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 	await get_tree().process_frame
 	await get_tree().process_frame  # Wait an extra frame for safety

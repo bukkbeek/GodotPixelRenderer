@@ -102,6 +102,10 @@ func process_next_export_step():
 	var current_angle = current_step * angle_increment
 	
 	model_rotate_slider.value = current_angle
+	# Wait extra frames for rotation to fully apply and viewport to render
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
 	
 	if base_prefix.is_empty():
 		renderer.prefix_text.text = "frame_" + str(current_angle)
@@ -198,6 +202,10 @@ func _save_settings():
 func _on_single_export_finished():
 	# Renderer сообщил, что закончил. Переходим к следующему шагу.
 	current_step += 1
+	# Wait extra frames to ensure viewport has fully rendered before next rotation
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
 	process_next_export_step()
 
 func _on_model_rotated(_value):

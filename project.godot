@@ -8,20 +8,30 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Pixel Renderer"
 run/main_scene="uid://y4o6ttmh8hb4"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://d3o8isbpbhfrw"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
+window/dpi/allow_hidpi=false
 
 [dotnet]
 
 project/assembly_name="Pixel Renderer"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
